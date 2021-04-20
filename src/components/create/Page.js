@@ -5,7 +5,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
 // Components
 import Answer from './Answer'
@@ -13,9 +12,7 @@ import DeleteQuestionButton from './DeleteQuestionButton'
 import Loader from '../shared/Loader'
 import Dots from './Dots'
 import Question from './Question'
-
-// Images
-import correctAnswerImage from '../../images/correctAnswer.svg'
+import CorrectAnswer from './CorrectAnswer'
 
 // Styles
 import QuestionNumber from '../../styles/QuestionNumber'
@@ -54,40 +51,17 @@ const AnswerWrapper = styled.div`
   position: relative;
 `
 
-const CorrectAnswer = styled.div`
+const CorrectAnswersContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   font-weight: 900;
 `
 
-const CorrectAnswerContainer = styled.div`
+const CorrectAnswerWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-top: 5px;
-`
-
-const CorrectAnswerBlock = styled.button`
-  position: relative;
-  border: none;
-  width: 40px;
-  height: 40px;
-  margin: 0 5px;
-  background-color: ${props => props.backgroundColor};
-  cursor: pointer;
-`
-
-const CorrectAnswerMark = styled(motion.div)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  background-image: url(${correctAnswerImage});
-  background-size: 70%;
-  background-position: center;
-  background-repeat: no-repeat;
 `
 
 function Page({
@@ -153,37 +127,19 @@ function Page({
             </AnswerWrapper>
           ))}
         </AnswersWrapperWithMargin>
-        <CorrectAnswer>
+        <CorrectAnswersContainer>
           Correct answer
-          <CorrectAnswerContainer>
+          <CorrectAnswerWrapper>
             {answersColors.map((color, index) => (
-              <CorrectAnswerBlock
-                key={color}
-                backgroundColor={color}
-                onClick={e => !isFetchingData && setCorrectAnswer(index)}>
-                {correctAnswer === index && (
-                  <CorrectAnswerMark
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        width: '0%',
-                        height: '0%',
-                      },
-                      visible: {
-                        opacity: 1,
-                        width: '100%',
-                        height: '100%',
-                      },
-                    }}
-                    transition={{ type: 'spring', stiffness: 700 }}
-                    initial="hidden"
-                    animate="visible"
-                  />
-                )}
-              </CorrectAnswerBlock>
+              <CorrectAnswer
+                color={color}
+                setCorrectAnswer={setCorrectAnswer}
+                index={index}
+                correctAnswer={correctAnswer}
+              />
             ))}
-          </CorrectAnswerContainer>
-        </CorrectAnswer>
+          </CorrectAnswerWrapper>
+        </CorrectAnswersContainer>
       </Container>
       <Navigation>
         {isFetchingData && <Loader small />}
