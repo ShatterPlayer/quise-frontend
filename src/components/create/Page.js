@@ -9,39 +9,16 @@ import styled from 'styled-components'
 // Components
 import Answer from './Answer'
 import DeleteQuestionButton from './DeleteQuestionButton'
-import Loader from '../shared/Loader'
 import Dots from './Dots'
 import Question from './Question'
 import CorrectAnswer from './CorrectAnswer'
+import Navigation from './Navigation'
 
 // Styles
 import QuestionNumber from '../../styles/QuestionNumber'
 import AnswersWrapper from '../../styles/AnswersWrapper'
 import Container from './styles/Container'
 import AnswerError from './styles/AnswerError'
-
-const Navigation = styled.nav`
-  position: relative;
-  width: 100%;
-  height: 120px;
-  display: flex;
-`
-
-const NavButton = styled.button`
-  flex: 1;
-  background-color: ${props =>
-    props.finish ? props.theme.colors.green : props.theme.colors.blue};
-  border: none;
-  font-size: 18px;
-  color: ${props => props.theme.colors.white};
-  font-weight: 600;
-  cursor: pointer;
-
-  :disabled {
-    background-color: grey;
-    cursor: not-allowed;
-  }
-`
 
 const AnswersWrapperWithMargin = styled(AnswersWrapper)`
   margin: 20px 0;
@@ -65,8 +42,8 @@ const CorrectAnswerWrapper = styled.div`
 `
 
 function Page({
-  disabledPreviousQuestion,
-  disabledNextQuestion,
+  disabledPreviousButton,
+  disabledNextButton,
   disabledFinishButton,
   disabledDeletionButton,
   question,
@@ -85,8 +62,7 @@ function Page({
   handleQuestionChange,
   theme,
   prohibitNewline,
-  maxCorrectQuestionNumber,
-  handleFinishQuizCreation,
+  handleFinishQuiz,
   isFetchingData,
 }) {
   const answersColors = [
@@ -132,6 +108,7 @@ function Page({
           <CorrectAnswerWrapper>
             {answersColors.map((color, index) => (
               <CorrectAnswer
+                key={color}
                 color={color}
                 setCorrectAnswer={setCorrectAnswer}
                 index={index}
@@ -141,30 +118,21 @@ function Page({
           </CorrectAnswerWrapper>
         </CorrectAnswersContainer>
       </Container>
-      <Navigation>
-        {isFetchingData && <Loader small />}
-        <NavButton
-          disabled={disabledPreviousQuestion || isFetchingData}
-          onClick={handlePreviousQuestion}>
-          Previous
-        </NavButton>
-        <NavButton
-          disabled={disabledFinishButton || isFetchingData}
-          onClick={handleFinishQuizCreation}
-          finish>
-          Finish
-        </NavButton>
-        <NavButton disabled={disabledNextQuestion} onClick={handleNextQuestion}>
-          Next
-        </NavButton>
-      </Navigation>
+      <Navigation
+        disabledPrevious={disabledPreviousButton}
+        onClickPrevious={handlePreviousQuestion}
+        disabledFinish={disabledFinishButton}
+        onClickFinish={handleFinishQuiz}
+        disabledNext={disabledNextButton}
+        onClickNext={handleNextQuestion}
+      />
     </>
   )
 }
 
 Page.propTypes = {
-  disabledPreviousQuestion: PropTypes.bool.isRequired,
-  disabledNextQuestion: PropTypes.bool.isRequired,
+  disabledPreviousButton: PropTypes.bool.isRequired,
+  disabledNextButton: PropTypes.bool.isRequired,
   disabledFinishButton: PropTypes.bool.isRequired,
   disabledDeletionButton: PropTypes.bool.isRequired,
   question: PropTypes.object,
@@ -183,7 +151,7 @@ Page.propTypes = {
   handleQuestionChange: PropTypes.func.isRequired,
   prohibitNewline: PropTypes.func.isRequired,
   maxCorrectQuestionNumber: PropTypes.number.isRequired,
-  handleFinishQuizCreation: PropTypes.func.isRequired,
+  handleFinishQuiz: PropTypes.func.isRequired,
 }
 
 export default Page

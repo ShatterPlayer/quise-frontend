@@ -38,7 +38,6 @@ export const CorrectAnswer = ({
   correctAnswer,
 }) => (
   <CorrectAnswerElement
-    key={color}
     backgroundColor={color}
     onClick={e => !isFetchingData && setCorrectAnswer(index)}>
     {correctAnswer === index && (

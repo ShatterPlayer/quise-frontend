@@ -150,7 +150,7 @@ function CreateQuizPage({
     }
   }
 
-  const handleFinishQuizCreation = () => {
+  const handleFinishQuiz = () => {
     modifyQuestion(text, answers, correctAnswer)
     finishQuizCreation()
   }
@@ -171,12 +171,10 @@ function CreateQuizPage({
       correctAnswer={correctAnswer}
       handlePreviousQuestion={handlePreviousQuestion}
       handleNextQuestion={handleNextQuestion}
-      handleFinishQuizCreation={handleFinishQuizCreation}
+      handleFinishQuiz={handleFinishQuiz}
       handleQuestionChange={handleQuestionChange}
-      disabledPreviousQuestion={
-        questionNumberCorrectType === 1 || areThereErrors
-      }
-      disabledNextQuestion={questionNumberCorrectType === 10 || areThereErrors}
+      disabledPreviousButton={questionNumberCorrectType === 1 || areThereErrors}
+      disabledNextButton={questionNumberCorrectType === 10 || areThereErrors}
       disabledFinishButton={
         maxCorrectQuestionNumber === 1 ||
         (questionNumberCorrectType === 1 && maxCorrectQuestionNumber === 2) ||
