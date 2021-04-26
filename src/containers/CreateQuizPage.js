@@ -45,15 +45,15 @@ function CreateQuizPage({
     initialAnswer,
   ])
 
-  const [answerErrors, setAnswerErrors] = useState(['', '', '', ''])
+  const [answersErrors, setAnswerErrors] = useState(['', '', '', ''])
   const [correctAnswer, setCorrectAnswer] = useState(0)
 
   const areThereErrors = !!(
     questionError ||
-    answerErrors[0] ||
-    answerErrors[1] ||
-    answerErrors[2] ||
-    answerErrors[3]
+    answersErrors[0] ||
+    answersErrors[1] ||
+    answersErrors[2] ||
+    answersErrors[3]
   )
 
   const history = useHistory()
@@ -102,11 +102,11 @@ function CreateQuizPage({
     newAnswers[index] = text
     setAnswers(newAnswers)
     if (!regexQuestionAnswer.test(text)) {
-      const error = [...answerErrors]
+      const error = [...answersErrors]
       error[index] = 'Answer must be 1 to 70 characters long and alphanumeric'
       setAnswerErrors(error)
-    } else if (answerErrors[index] !== '') {
-      const error = [...answerErrors]
+    } else if (answersErrors[index] !== '') {
+      const error = [...answersErrors]
       error[index] = ''
       setAnswerErrors(error)
     }
@@ -166,7 +166,7 @@ function CreateQuizPage({
       prohibitNewline={prohibitNewline}
       questionError={questionError}
       handleAnswerChange={handleAnswerChange}
-      answerErrors={answerErrors}
+      answersErrors={answersErrors}
       setCorrectAnswer={setCorrectAnswer}
       correctAnswer={correctAnswer}
       handlePreviousQuestion={handlePreviousQuestion}

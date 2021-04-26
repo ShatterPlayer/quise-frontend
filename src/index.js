@@ -32,6 +32,13 @@ const theme = {
   },
 }
 
+theme.answersColors = [
+  theme.colors.blue,
+  theme.colors.yellow,
+  theme.colors.red,
+  theme.colors.orange,
+]
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
