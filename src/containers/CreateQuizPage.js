@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { withTheme } from 'styled-components'
 
 // Redux
 import { connect } from 'react-redux'
@@ -11,7 +10,16 @@ import {
 } from '../redux/actions'
 
 // Components
-import Page from '../components/create/Page'
+import Dots from '../components/create/Dots'
+import DeleteQuestionButton from '../components/create/DeleteQuestionButton'
+import Question from '../components/create/Question'
+import Navigation from '../components/create/Navigation'
+import CorrectAnswers from '../components/create/CorrectAnswers'
+import Answers from '../components/create/Answers'
+
+// Styles
+import Container from '../components/create/styles/Container'
+import QuestionNumber from '../styles/QuestionNumber'
 
 // Utilities
 import regexes from '../utils/regexes'
@@ -27,10 +35,8 @@ function CreateQuizPage({
   deleteQuestion,
   question,
   title,
-  theme,
   finishQuizCreation,
   id,
-  isFetchingData,
 }) {
   const { questionNumber } = match.params
   const questionNumberCorrectType = Number(questionNumber)
@@ -156,35 +162,46 @@ function CreateQuizPage({
   }
 
   return (
-    <Page
-      question={question}
-      initialAnswer={initialAnswer}
-      initialQuestionText={initialQuestionText}
-      handleQuestionDeletion={handleQuestionDeletion}
-      questionNumber={questionNumberCorrectType}
-      handleQuestionTextChange={handleQuestionTextChange}
-      prohibitNewline={prohibitNewline}
-      questionError={questionError}
-      handleAnswerChange={handleAnswerChange}
-      answersErrors={answersErrors}
-      setCorrectAnswer={setCorrectAnswer}
-      correctAnswer={correctAnswer}
-      handlePreviousQuestion={handlePreviousQuestion}
-      handleNextQuestion={handleNextQuestion}
-      handleFinishQuiz={handleFinishQuiz}
-      handleQuestionChange={handleQuestionChange}
-      disabledPreviousButton={questionNumberCorrectType === 1 || areThereErrors}
-      disabledNextButton={questionNumberCorrectType === 10 || areThereErrors}
-      disabledFinishButton={
-        maxCorrectQuestionNumber === 1 ||
-        (questionNumberCorrectType === 1 && maxCorrectQuestionNumber === 2) ||
-        areThereErrors
-      }
-      disabledDeletionButton={maxCorrectQuestionNumber === 1}
-      theme={theme}
-      maxCorrectQuestionNumber={maxCorrectQuestionNumber}
-      isFetchingData={isFetchingData}
-    />
+    <>
+      <Container>
+        <Dots handleQuestionChange={handleQuestionChange} />
+        <DeleteQuestionButton
+          onClick={handleQuestionDeletion}
+          disabled={maxCorrectQuestionNumber === 1}
+        />
+        <QuestionNumber>{questionNumber}</QuestionNumber>
+        <Question
+          prohibitNewline={prohibitNewline}
+          handleQuestionTextChange={handleQuestionTextChange}
+          questionError={questionError}
+          initialQuestionText={initialQuestionText}>
+          {question && question.text}
+        </Question>
+        <Answers
+          handleAnswerChange={handleAnswerChange}
+          prohibitNewline={prohibitNewline}
+          initialAnswer={initialAnswer}
+          answersErrors={answersErrors}
+          question={question}
+        />
+        <CorrectAnswers
+          setCorrectAnswer={setCorrectAnswer}
+          correctAnswer={correctAnswer}
+        />
+      </Container>
+      <Navigation
+        disabledPrevious={questionNumberCorrectType === 1 || areThereErrors}
+        onClickPrevious={handlePreviousQuestion}
+        disabledFinish={
+          maxCorrectQuestionNumber === 1 ||
+          (questionNumberCorrectType === 1 && maxCorrectQuestionNumber === 2) ||
+          areThereErrors
+        }
+        onClickFinish={handleFinishQuiz}
+        disabledNext={questionNumberCorrectType === 10 || areThereErrors}
+        onClickNext={handleNextQuestion}
+      />
+    </>
   )
 }
 
@@ -193,7 +210,6 @@ const mapStateToProps = (state, ownProps) => ({
   maxCorrectQuestionNumber: state.newQuiz.questions.length + 1,
   title: state.newQuiz.title,
   id: state.newQuiz.id,
-  isFetchingData: state.isFetchingData,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -211,7 +227,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   finishQuizCreation: () => dispatch(finishQuizCreation()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withTheme(CreateQuizPage))
+export default connect(mapStateToProps, mapDispatchToProps)(CreateQuizPage)
