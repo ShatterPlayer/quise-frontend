@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -32,29 +33,30 @@ const NavButton = styled.button`
 export function Navigation({
   isFetchingData,
   disabledPrevious,
-  onClickPrevious,
+  changeQuestion,
   disabledFinish,
-  onClickFinish,
+  finishQuiz,
   disabledNext,
-  onClickNext,
 }) {
+  const params = useParams()
+  const questionNumber = Number(params.questionNumber)
   return (
     <NavigationContainer>
       {isFetchingData && <Loader small />}
       <NavButton
         disabled={disabledPrevious || isFetchingData}
-        onClick={onClickPrevious}>
+        onClick={() => changeQuestion(questionNumber - 1)}>
         Previous
       </NavButton>
       <NavButton
         disabled={disabledFinish || isFetchingData}
-        onClick={onClickFinish}
+        onClick={finishQuiz}
         finish>
         Finish
       </NavButton>
       <NavButton
         disabled={disabledNext || isFetchingData}
-        onClick={onClickNext}>
+        onClick={() => changeQuestion(questionNumber + 1)}>
         Next
       </NavButton>
     </NavigationContainer>
@@ -66,9 +68,8 @@ Navigation.propTypes = {
   disabledPrevious: PropTypes.bool.isRequired,
   disabledFinish: PropTypes.bool.isRequired,
   disabledNext: PropTypes.bool.isRequired,
-  onClickPrevious: PropTypes.func.isRequired,
-  onClickFinish: PropTypes.func.isRequired,
-  onClickNext: PropTypes.func.isRequired,
+  finishQuiz: PropTypes.func.isRequired,
+  changeQuestion: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

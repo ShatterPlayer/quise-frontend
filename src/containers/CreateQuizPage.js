@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
 // Redux
@@ -16,6 +17,10 @@ import Question from '../components/create/Question'
 import Navigation from '../components/create/Navigation'
 import CorrectAnswers from '../components/create/CorrectAnswers'
 import Answers from '../components/create/Answers'
+
+// Hooks
+import useTitleValidation from '../hooks/useTitleValidation'
+import useOrderValidation from '../hooks/useOrderValidation'
 
 // Styles
 import Container from '../components/create/styles/Container'
@@ -41,6 +46,8 @@ function CreateQuizPage({
   const { questionNumber } = match.params
   const questionNumberCorrectType = Number(questionNumber)
 
+  const history = useHistory()
+
   const [text, setText] = useState(initialQuestionText)
   const [questionError, setQuestionError] = useState('')
 
@@ -62,23 +69,12 @@ function CreateQuizPage({
     answersErrors[3]
   )
 
-  const history = useHistory()
+  useTitleValidation(title)
+  useOrderValidation(maxCorrectQuestionNumber, questionNumber)
 
-  useEffect(() => {
-    if (!regexes.regexQuizTitle.test(title)) {
-      history.push('/')
-    }
+  // TODO: Move other hooks to separate files
 
-    // Questions have to be added in order. User should not be allowed to add e.g. question 5 before question 4.
-    if (
-      maxCorrectQuestionNumber < questionNumber ||
-      questionNumber < 1 ||
-      !regexes.regexQuestionNumber.test(questionNumber)
-    ) {
-      history.push(`/createquiz/${maxCorrectQuestionNumber}`)
-    }
-  }, [history, maxCorrectQuestionNumber, questionNumber, title])
-
+  // Draft question is synced with the question in the Redux store
   useEffect(() => {
     if (question) {
       setText(question.text)
@@ -87,6 +83,7 @@ function CreateQuizPage({
     }
   }, [question])
 
+  // After quiz creation id is added and user should be redirected to summary page
   useEffect(() => {
     if (id !== '') {
       history.push('/quizsummary')
@@ -125,26 +122,10 @@ function CreateQuizPage({
     }
   }
 
-  const headToQuestion = questionNumber => {
-    history.push(`/createquiz/${questionNumber}`)
-  }
-
-  const handleNextQuestion = () => {
-    modifyQuestion(text, answers, correctAnswer)
-
-    headToQuestion(questionNumberCorrectType + 1)
-  }
-
-  const handlePreviousQuestion = () => {
-    modifyQuestion(text, answers, correctAnswer)
-
-    headToQuestion(questionNumberCorrectType - 1)
-  }
-
   const handleQuestionChange = questionIndex => {
     modifyQuestion(text, answers, correctAnswer)
 
-    headToQuestion(questionIndex)
+    history.push(`/createquiz/${questionIndex}`)
   }
 
   const handleQuestionDeletion = () => {
@@ -152,7 +133,7 @@ function CreateQuizPage({
       deleteQuestion()
     }
     if (questionNumberCorrectType + 1 >= maxCorrectQuestionNumber) {
-      headToQuestion(questionNumberCorrectType - 1)
+      history.push(`/createquiz/${questionNumberCorrectType - 1}`)
     }
   }
 
@@ -191,18 +172,28 @@ function CreateQuizPage({
       </Container>
       <Navigation
         disabledPrevious={questionNumberCorrectType === 1 || areThereErrors}
-        onClickPrevious={handlePreviousQuestion}
         disabledFinish={
           maxCorrectQuestionNumber === 1 ||
           (questionNumberCorrectType === 1 && maxCorrectQuestionNumber === 2) ||
           areThereErrors
         }
-        onClickFinish={handleFinishQuiz}
+        changeQuestion={handleQuestionChange}
+        finishQuiz={handleFinishQuiz}
         disabledNext={questionNumberCorrectType === 10 || areThereErrors}
-        onClickNext={handleNextQuestion}
       />
     </>
   )
+}
+
+CreateQuizPage.propTypes = {
+  match: PropTypes.object.isRequired,
+  maxCorrectQuestionNumber: PropTypes.number.isRequired,
+  modifyQuestion: PropTypes.func.isRequired,
+  deleteQuestion: PropTypes.func.isRequired,
+  question: PropTypes.object,
+  title: PropTypes.string.isRequired,
+  finishQuizCreation: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({

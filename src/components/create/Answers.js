@@ -27,7 +27,6 @@ export function Answers({
   initialAnswer,
   answersErrors,
 }) {
-  console.log(prohibitNewline)
   return (
     <AnswersWrapperWithMargin>
       {answersColors.map((color, index) => (
