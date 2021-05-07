@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 
 // Images
 import correctAnswerImage from '../../images/correctAnswer.svg'
@@ -36,11 +36,25 @@ export const CorrectAnswer = ({
   index,
   isFetchingData,
   correctAnswer,
-}) => (
-  <CorrectAnswerElement
-    backgroundColor={color}
-    onClick={e => !isFetchingData && setCorrectAnswer(index)}>
-    {correctAnswer === index && (
+}) => {
+  const selectAnimation = useAnimation()
+
+  useEffect(() => {
+    if (correctAnswer === index) {
+      selectAnimation.start('visible')
+    } else {
+      selectAnimation.start('hidden')
+    }
+  }, [correctAnswer, index, selectAnimation])
+
+  const onClick = () => {
+    if (!isFetchingData) {
+      setCorrectAnswer(index)
+      selectAnimation.start('visible')
+    }
+  }
+  return (
+    <CorrectAnswerElement backgroundColor={color} onClick={onClick}>
       <CorrectAnswerMark
         variants={{
           hidden: {
@@ -54,13 +68,13 @@ export const CorrectAnswer = ({
             height: '100%',
           },
         }}
-        transition={{ type: 'spring', stiffness: 700 }}
-        initial="hidden"
-        animate="visible"
+        transition={{ type: 'tween' }}
+        initial={correctAnswer === index ? 'visible' : 'hidden'}
+        animate={selectAnimation}
       />
-    )}
-  </CorrectAnswerElement>
-)
+    </CorrectAnswerElement>
+  )
+}
 
 CorrectAnswer.propTypes = {
   color: PropTypes.string.isRequired,
