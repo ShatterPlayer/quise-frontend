@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import QuestionText from '../../styles/QuestionText'
 import AnswerError from './styles/AnswerError'
 
+// Utils
+import prohibitNewline from '../../utils/prohibitNewline'
+
 const QuestionTextWrapper = styled.div`
   position: relative;
 `
@@ -18,7 +21,6 @@ const QuestionError = styled(AnswerError)`
 export const Question = ({
   isFetchingData,
   handleQuestionTextChange,
-  prohibitNewline,
   questionError,
   children,
   initialQuestionText,

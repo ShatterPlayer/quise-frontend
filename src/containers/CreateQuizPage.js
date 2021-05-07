@@ -21,12 +21,14 @@ import Answers from '../components/create/Answers'
 // Hooks
 import useTitleValidation from '../hooks/useTitleValidation'
 import useOrderValidation from '../hooks/useOrderValidation'
+import useCreationListener from '../hooks/useCreationListener'
 
 // Styles
 import Container from '../components/create/styles/Container'
 import QuestionNumber from '../styles/QuestionNumber'
 
 // Utilities
+import prohibitNewline from '../utils/prohibitNewline'
 import regexes from '../utils/regexes'
 const { regexQuestionText, regexQuestionAnswer } = regexes
 
@@ -84,11 +86,7 @@ function CreateQuizPage({
   }, [question])
 
   // After quiz creation id is added and user should be redirected to summary page
-  useEffect(() => {
-    if (id !== '') {
-      history.push('/quizsummary')
-    }
-  }, [id, history])
+  useCreationListener(id)
 
   const handleQuestionTextChange = e => {
     setText(e.target.innerText)
@@ -112,13 +110,6 @@ function CreateQuizPage({
       const error = [...answersErrors]
       error[index] = ''
       setAnswerErrors(error)
-    }
-  }
-
-  const prohibitNewline = e => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      e.target.blur()
     }
   }
 

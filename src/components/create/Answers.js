@@ -3,6 +3,9 @@ import styled, { withTheme } from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+//Utils
+import prohibitNewline from '../../utils/prohibitNewline'
+
 // Styles
 import AnswersWrapper from '../../styles/AnswersWrapper'
 import AnswerError from './styles/AnswerError'
@@ -21,7 +24,6 @@ const AnswerContainer = styled.div`
 export function Answers({
   theme: { answersColors },
   handleAnswerChange,
-  prohibitNewline,
   isFetchingData,
   question,
   initialAnswer,
