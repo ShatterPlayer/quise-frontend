@@ -1,6 +1,11 @@
+// TODO: Only question and answers should be animated.
+// TODO: Fix correct answer animation
+
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import styled from 'styled-components'
 
 // Redux
 import { connect } from 'react-redux'
@@ -32,8 +37,21 @@ import prohibitNewline from '../utils/prohibitNewline'
 import regexes from '../utils/regexes'
 const { regexQuestionText, regexQuestionAnswer } = regexes
 
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: ${props => props.theme.colors.green};
+`
+
 const initialQuestionText = 'Type the question here'
 const initialAnswer = 'Type the answer here'
+const initialAnswers = [
+  initialAnswer,
+  initialAnswer,
+  initialAnswer,
+  initialAnswer,
+]
 
 function CreateQuizPage({
   match,
@@ -53,12 +71,7 @@ function CreateQuizPage({
   const [text, setText] = useState(initialQuestionText)
   const [questionError, setQuestionError] = useState('')
 
-  const [answers, setAnswers] = useState([
-    initialAnswer,
-    initialAnswer,
-    initialAnswer,
-    initialAnswer,
-  ])
+  const [answers, setAnswers] = useState(initialAnswers)
 
   const [answersErrors, setAnswerErrors] = useState(['', '', '', ''])
   const [correctAnswer, setCorrectAnswer] = useState(0)
@@ -82,8 +95,12 @@ function CreateQuizPage({
       setText(question.text)
       setAnswers(question.answers)
       setCorrectAnswer(question.correctAnswer)
+    } else {
+      setText(initialQuestionText)
+      setAnswers(initialAnswers)
+      setCorrectAnswer(0)
     }
-  }, [question])
+  }, [question, questionNumber])
 
   // After quiz creation id is added and user should be redirected to summary page
   useCreationListener(id)
@@ -134,33 +151,41 @@ function CreateQuizPage({
   }
 
   return (
-    <>
-      <Container>
-        <Dots handleQuestionChange={handleQuestionChange} />
-        <DeleteQuestionButton
-          onClick={handleQuestionDeletion}
-          disabled={maxCorrectQuestionNumber === 1}
-        />
-        <QuestionNumber>{questionNumber}</QuestionNumber>
-        <Question
-          prohibitNewline={prohibitNewline}
-          handleQuestionTextChange={handleQuestionTextChange}
-          questionError={questionError}
-          initialQuestionText={initialQuestionText}>
-          {question && question.text}
-        </Question>
-        <Answers
-          handleAnswerChange={handleAnswerChange}
-          prohibitNewline={prohibitNewline}
-          initialAnswer={initialAnswer}
-          answersErrors={answersErrors}
-          question={question}
-        />
-        <CorrectAnswers
-          setCorrectAnswer={setCorrectAnswer}
-          correctAnswer={correctAnswer}
-        />
-      </Container>
+    <Wrapper>
+      <AnimatePresence exitBeforeEnter initial={false}>
+        <Container
+          key={questionNumber}
+          as={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: 'tween' }}>
+          <Dots handleQuestionChange={handleQuestionChange} />
+          <DeleteQuestionButton
+            onClick={handleQuestionDeletion}
+            disabled={maxCorrectQuestionNumber === 1}
+          />
+          <QuestionNumber>{questionNumber}</QuestionNumber>
+          <Question
+            prohibitNewline={prohibitNewline}
+            handleQuestionTextChange={handleQuestionTextChange}
+            questionError={questionError}
+            initialQuestionText={initialQuestionText}>
+            {question && question.text}
+          </Question>
+          <Answers
+            handleAnswerChange={handleAnswerChange}
+            prohibitNewline={prohibitNewline}
+            initialAnswer={initialAnswer}
+            answersErrors={answersErrors}
+            question={question}
+          />
+          <CorrectAnswers
+            setCorrectAnswer={setCorrectAnswer}
+            correctAnswer={correctAnswer}
+          />
+        </Container>
+      </AnimatePresence>
       <Navigation
         disabledPrevious={questionNumberCorrectType === 1 || areThereErrors}
         disabledFinish={
@@ -172,7 +197,7 @@ function CreateQuizPage({
         finishQuiz={handleFinishQuiz}
         disabledNext={questionNumberCorrectType === 10 || areThereErrors}
       />
-    </>
+    </Wrapper>
   )
 }
 

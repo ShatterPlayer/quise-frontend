@@ -19,9 +19,7 @@ function App() {
         />
         <Route
           path="/createquiz/:questionNumber?"
-          children={({ match }) => (
-            <CreateQuizPage key={match.params.questionNumber} match={match} />
-          )}
+          children={({ match }) => <CreateQuizPage match={match} />}
         />
         <Route path="/quizsummary" component={NewQuizSummaryPage} exact />
       </Switch>
