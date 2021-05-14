@@ -17,6 +17,7 @@ const DeleteButton = styled.button`
   height: 35px;
   background-color: ${({ theme }) => theme.colors.red};
   cursor: pointer;
+  z-index: 9;
 
   :disabled {
     background-color: grey;

@@ -7,6 +7,7 @@ const QuestionNumber = styled.div`
   font-size: 48px;
   font-weight: 700;
   padding: 10px;
+  z-index: 9;
 `
 
 export default QuestionNumber

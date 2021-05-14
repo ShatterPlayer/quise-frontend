@@ -9,6 +9,7 @@ const DotsContainer = styled.div`
   top: 25px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 9;
 `
 
 const Dot = styled.button`
