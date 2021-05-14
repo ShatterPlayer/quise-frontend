@@ -28,7 +28,6 @@ import Container from '../components/create/styles/Container'
 import QuestionNumber from '../styles/QuestionNumber'
 
 // Utilities
-import prohibitNewline from '../utils/prohibitNewline'
 import regexes from '../utils/regexes'
 const { regexQuestionText, regexQuestionAnswer } = regexes
 
@@ -150,7 +149,6 @@ function CreateQuizPage({
         />
         <QuestionNumber>{questionNumber}</QuestionNumber>
         <Question
-          prohibitNewline={prohibitNewline}
           handleQuestionTextChange={handleQuestionTextChange}
           questionError={questionError}
           initialQuestionText={initialQuestionText}>
@@ -158,7 +156,6 @@ function CreateQuizPage({
         </Question>
         <Answers
           handleAnswerChange={handleAnswerChange}
-          prohibitNewline={prohibitNewline}
           initialAnswer={initialAnswer}
           answersErrors={answersErrors}
           question={question}
