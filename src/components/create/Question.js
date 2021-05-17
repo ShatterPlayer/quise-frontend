@@ -31,7 +31,15 @@ export const Question = ({
       suppressContentEditableWarning
       onInput={handleQuestionTextChange}
       onBlur={handleQuestionTextChange}
-      onKeyDown={prohibitNewline}>
+      onKeyDown={prohibitNewline}
+      // onFocus={e => {
+      //   if (e.currentTarget.innerText == initialQuestionText) {
+      //     setTimeout(() => {
+      //       document.execCommand('selectAll', false, null)
+      //     }, 1)
+      //   }
+      // }}
+    >
       {children ? children : initialQuestionText}
     </QuestionText>
     <QuestionError>{questionError}</QuestionError>
@@ -46,7 +54,6 @@ Question.propTypes = {
   children: PropTypes.string,
   isFetchingData: PropTypes.bool.isRequired,
   handleQuestionTextChange: PropTypes.func.isRequired,
-  prohibitNewline: PropTypes.func.isRequired,
   questionError: PropTypes.string.isRequired,
   initialQuestionText: PropTypes.string.isRequired,
 }

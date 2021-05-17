@@ -71,10 +71,8 @@ function CreateQuizPage({
     answersErrors[3]
   )
 
-  useTitleValidation(title)
+  useTitleValidation(title, questionNumber)
   useOrderValidation(maxCorrectQuestionNumber, questionNumber)
-
-  // TODO: Move other hooks to separate files
 
   // Draft question is synced with the question in the Redux store
   useEffect(() => {
@@ -149,12 +147,15 @@ function CreateQuizPage({
         />
         <QuestionNumber>{questionNumber}</QuestionNumber>
         <Question
+          key={questionNumberCorrectType}
+          questionNumber={questionNumberCorrectType}
           handleQuestionTextChange={handleQuestionTextChange}
           questionError={questionError}
           initialQuestionText={initialQuestionText}>
           {question && question.text}
         </Question>
         <Answers
+          key={questionNumberCorrectType + 1}
           handleAnswerChange={handleAnswerChange}
           initialAnswer={initialAnswer}
           answersErrors={answersErrors}

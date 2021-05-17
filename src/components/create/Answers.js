@@ -55,7 +55,6 @@ const mapStateToProps = state => ({
 Answers.propTypes = {
   theme: PropTypes.object.isRequired,
   handleAnswerChange: PropTypes.func.isRequired,
-  prohibitNewline: PropTypes.func.isRequired,
   isFetchingData: PropTypes.bool.isRequired,
   question: PropTypes.object,
   initialAnswer: PropTypes.string.isRequired,
