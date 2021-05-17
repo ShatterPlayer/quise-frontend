@@ -7,6 +7,7 @@ import AnswerError from './styles/AnswerError'
 
 // Utils
 import prohibitNewline from '../../utils/prohibitNewline'
+import selectAllOnFocus from '../../utils/selectAllOnFocus'
 
 const QuestionTextWrapper = styled.div`
   position: relative;
@@ -32,14 +33,11 @@ export const Question = ({
       onInput={handleQuestionTextChange}
       onBlur={handleQuestionTextChange}
       onKeyDown={prohibitNewline}
-      // onFocus={e => {
-      //   if (e.currentTarget.innerText == initialQuestionText) {
-      //     setTimeout(() => {
-      //       document.execCommand('selectAll', false, null)
-      //     }, 1)
-      //   }
-      // }}
-    >
+      onFocus={e => {
+        if (e.currentTarget.innerText === initialQuestionText) {
+          selectAllOnFocus()
+        }
+      }}>
       {children ? children : initialQuestionText}
     </QuestionText>
     <QuestionError>{questionError}</QuestionError>

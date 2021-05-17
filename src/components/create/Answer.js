@@ -6,6 +6,9 @@ import { withTheme } from 'styled-components'
 import AnswerContainer from '../../styles/Answer'
 import AnswerText from '../../styles/AnswerText'
 
+// Utils
+import selectAllOnFocus from '../../utils/selectAllOnFocus'
+
 function Answer({
   backgroundColor,
   onInput,
@@ -14,6 +17,7 @@ function Answer({
   children,
   key,
   editable,
+  initialAnswer,
 }) {
   return (
     <AnswerContainer as="div" color={backgroundColor} key={key}>
@@ -22,7 +26,12 @@ function Answer({
         suppressContentEditableWarning
         onInput={onInput}
         onBlur={onBlur}
-        onKeyDown={onKeyDown}>
+        onKeyDown={onKeyDown}
+        onFocus={e => {
+          if (e.currentTarget.innerText === initialAnswer) {
+            selectAllOnFocus()
+          }
+        }}>
         {children}
       </AnswerText>
     </AnswerContainer>

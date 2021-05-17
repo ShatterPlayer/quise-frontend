@@ -38,7 +38,8 @@ export function Answers({
             onBlur={e => handleAnswerChange(e, index)}
             onKeyDown={prohibitNewline}
             editable={!isFetchingData}
-            backgroundColor={color}>
+            backgroundColor={color}
+            initialAnswer={initialAnswer}>
             {question ? question.answers[index] : initialAnswer}
           </Answer>
           <AnswerError>{answersErrors[index]}</AnswerError>
