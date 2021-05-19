@@ -83,9 +83,8 @@ function Leaderboard({ getLeaderboard, users, title, loading }) {
             <Answers>
               {user.answers.length ? (
                 user.answers.map((answer, index) => (
-                  <AnswerWrapper>
+                  <AnswerWrapper key={index}>
                     <Answer
-                      key={index}
                       src={answer ? correctAnswer : wrongAnswer}
                       alt={answer ? 'correct' : 'wrong'}
                     />
