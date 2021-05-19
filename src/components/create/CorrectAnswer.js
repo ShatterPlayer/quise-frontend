@@ -15,6 +15,9 @@ const CorrectAnswerElement = styled.button`
   margin: 0 5px;
   background-color: ${props => props.backgroundColor};
   cursor: pointer;
+  :disabled {
+    cursor: not-allowed;
+  }
 `
 
 const CorrectAnswerMark = styled(motion.div)`
@@ -48,13 +51,14 @@ export const CorrectAnswer = ({
   }, [correctAnswer, index, selectAnimation])
 
   const onClick = () => {
-    if (!isFetchingData) {
-      setCorrectAnswer(index)
-      selectAnimation.start('visible')
-    }
+    setCorrectAnswer(index)
+    selectAnimation.start('visible')
   }
   return (
-    <CorrectAnswerElement backgroundColor={color} onClick={onClick}>
+    <CorrectAnswerElement
+      disabled={isFetchingData}
+      backgroundColor={color}
+      onClick={onClick}>
       <CorrectAnswerMark
         variants={{
           hidden: {
