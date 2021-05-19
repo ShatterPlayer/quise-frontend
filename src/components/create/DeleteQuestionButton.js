@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 // Images
 import trashBin from '../../images/trashBin.svg'
 
-const DeleteButton = styled.button`
+export const DeleteButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,9 +31,20 @@ const DeleteButtonImage = styled.img`
   width: 80%;
 `
 
-const DeleteQuestionButton = ({ onClick, disabled }) => (
-  <DeleteButton onClick={onClick} disabled={disabled}>
+const DeleteQuestionButton = ({ onClick, disabled, isFetchingData }) => (
+  <DeleteButton onClick={onClick} disabled={disabled || isFetchingData}>
     <DeleteButtonImage alt="trashBin" src={trashBin} />
   </DeleteButton>
 )
-export default DeleteQuestionButton
+
+DeleteQuestionButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  isFetchingData: PropTypes.bool.isRequired,
+}
+
+const mapStateToProps = state => ({
+  isFetchingData: state.isFetchingData,
+})
+
+export default connect(mapStateToProps)(DeleteQuestionButton)
