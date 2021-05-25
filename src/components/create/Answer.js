@@ -3,8 +3,7 @@ import React from 'react'
 import { withTheme } from 'styled-components'
 
 // Styles
-import AnswerContainer from '../../styles/Answer'
-import AnswerText from '../../styles/AnswerText'
+import AnswerButton from '../../styles/Answer'
 
 // Utils
 import selectAllOnFocus from '../../utils/selectAllOnFocus'
@@ -20,21 +19,22 @@ function Answer({
   initialAnswer,
 }) {
   return (
-    <AnswerContainer as="div" color={backgroundColor} key={key}>
-      <AnswerText
-        contentEditable={editable}
-        suppressContentEditableWarning
-        onInput={onInput}
-        onBlur={onBlur}
-        onKeyDown={onKeyDown}
-        onFocus={e => {
-          if (e.currentTarget.innerText === initialAnswer) {
-            selectAllOnFocus()
-          }
-        }}>
-        {children}
-      </AnswerText>
-    </AnswerContainer>
+    <AnswerButton
+      as="span"
+      key={key}
+      color={backgroundColor}
+      contentEditable={editable}
+      suppressContentEditableWarning
+      onInput={onInput}
+      onBlur={onBlur}
+      onKeyDown={onKeyDown}
+      onFocus={e => {
+        if (e.currentTarget.innerText === initialAnswer) {
+          selectAllOnFocus()
+        }
+      }}>
+      {children}
+    </AnswerButton>
   )
 }
 

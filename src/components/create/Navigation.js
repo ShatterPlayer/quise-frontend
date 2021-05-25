@@ -10,8 +10,12 @@ import Loader from '../shared/Loader'
 const NavigationContainer = styled.nav`
   position: relative;
   width: 100%;
-  height: 120px;
+  height: 10vh;
   display: flex;
+
+  @media only screen and (min-width: 750px) {
+    height: 15vh;
+  }
 `
 
 const NavButton = styled.button`

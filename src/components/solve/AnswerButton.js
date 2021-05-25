@@ -14,7 +14,6 @@ function AnswerButton({
   onClick,
   children,
   key,
-  editable,
 }) {
   const { green, red } = theme.colors
 

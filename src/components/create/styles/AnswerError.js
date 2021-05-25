@@ -9,7 +9,7 @@ const AnswerError = styled.span`
   width: 100%;
   text-align: center;
   color: ${props => props.theme.colors.red};
-  transform: translateX(-50%);
+  transform: translate(-50%, 50%);
 `
 
 export default AnswerError
