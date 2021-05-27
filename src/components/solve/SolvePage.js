@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import styled, { withTheme, createGlobalStyle } from 'styled-components'
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
 
@@ -52,8 +52,9 @@ function Page({
   startDataFetch,
   theme,
 }) {
-  const [selectedAnswer, setSelectedAnswer] = useState(-1)
   const history = useHistory()
+  const { quizId } = useParams()
+  const [selectedAnswer, setSelectedAnswer] = useState(-1)
   const { green, yellow, red, orange } = theme.colors
   const answersColors = [green, yellow, red, orange]
 
@@ -68,11 +69,18 @@ function Page({
         setTimeout(() => {
           // The line below prevents leaderboard from displaying before spinner
           startDataFetch()
-          history.push(`${history.location.pathname}/leaderboard`)
+          history.push(`/quiz/${quizId}/leaderboard`)
         }, 2000)
       }
     }
-  }, [correctAnswer, history, isQuizDone, nextQuestionNumber, startDataFetch])
+  }, [
+    correctAnswer,
+    history,
+    isQuizDone,
+    nextQuestionNumber,
+    startDataFetch,
+    quizId,
+  ])
 
   const onCheck = () => {
     submitAnswer(selectedAnswer, questionNumber)
