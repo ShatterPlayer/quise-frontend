@@ -16,7 +16,7 @@ const CorrectAnswerElement = styled.button`
   background-color: ${props => props.backgroundColor};
   cursor: pointer;
   :disabled {
-    cursor: not-allowed;
+    cursor: default;
   }
 `
 
@@ -56,7 +56,7 @@ export const CorrectAnswer = ({
   }
   return (
     <CorrectAnswerElement
-      disabled={isFetchingData}
+      disabled={isFetchingData || correctAnswer === index}
       backgroundColor={color}
       onClick={onClick}>
       <CorrectAnswerMark
