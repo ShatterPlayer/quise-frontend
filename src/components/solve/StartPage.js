@@ -80,6 +80,11 @@ function StartPage({
     getQuizDetails(quizId)
   }, [getQuizDetails, quizId])
 
+  const onSubmit = e => {
+    e.preventDefault()
+    startQuiz(quizId, username)
+  }
+
   return (
     <Container>
       <QuizDetails>
@@ -87,7 +92,7 @@ function StartPage({
         <Line />
         <QuestionsAmount>{numberOfQuestions} questions</QuestionsAmount>
       </QuizDetails>
-      <UserDetails onSubmit={e => e.preventDefault()}>
+      <UserDetails onSubmit={onSubmit}>
         <UsernameInput
           type="text"
           placeholder="USERNAME"
@@ -98,8 +103,7 @@ function StartPage({
           type="submit"
           isLoading={loading}
           disabled={username.trim() === ''}
-          color={theme.colors.blue}
-          onClick={() => startQuiz(quizId, username)}>
+          color={theme.colors.blue}>
           START
         </Button>
         {error && <Error>{error}</Error>}
