@@ -16,7 +16,8 @@ export const MODIFY_QUESTION = 'MODIFY_QUESTION'
 export const DELETE_QUESTION = 'DELETE_QUESTION'
 export const FINISH_QUIZ_CREATION = 'FINISH_QUIZ_CREATION'
 
-export const startQuiz = (quizId, username) => dispatch => {
+export const startQuiz = (quizId, username, token) => dispatch => {
+  dispatch({ type: CLEAR_ERROR })
   dispatch({ type: START_DATA_FETCH })
 
   axios
@@ -24,6 +25,7 @@ export const startQuiz = (quizId, username) => dispatch => {
       params: {
         quizId,
         username,
+        token,
       },
     })
     .then(response => {
@@ -156,9 +158,9 @@ export const setNewQuizTitle = title => ({
   title,
 })
 
-export const addError = error => ({
+export const addError = message => ({
   type: ADD_ERROR,
-  error,
+  error: message,
 })
 
 export const clearError = () => ({

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { useParams } from 'react-router-dom'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 // Components
 import Button from '../shared/Button'
 import Error from '../shared/Error'
+
+// Utilities
+import runReCAPTCHA from '../../utils/runReCAPTCHA'
 
 const Container = styled.div`
   display: flex;
@@ -75,6 +79,7 @@ function StartPage({
 }) {
   const { quizId } = useParams()
   const [username, setUsername] = useState('')
+  const recaptcha = useRef()
 
   useEffect(() => {
     getQuizDetails(quizId)
@@ -82,7 +87,9 @@ function StartPage({
 
   const onSubmit = e => {
     e.preventDefault()
-    startQuiz(quizId, username)
+    runReCAPTCHA(recaptcha)
+      .then(token => startQuiz(quizId, username, token))
+      .catch(() => true)
   }
 
   return (
@@ -93,6 +100,11 @@ function StartPage({
         <QuestionsAmount>{numberOfQuestions} questions</QuestionsAmount>
       </QuizDetails>
       <UserDetails onSubmit={onSubmit}>
+        <ReCAPTCHA
+          size="invisible"
+          sitekey="6LcDvfsaAAAAACXmFp5FoIQhSGIYnkg1M6bfVXQI"
+          ref={recaptcha}
+        />
         <UsernameInput
           type="text"
           placeholder="USERNAME"
