@@ -16,7 +16,7 @@ export const MODIFY_QUESTION = 'MODIFY_QUESTION'
 export const DELETE_QUESTION = 'DELETE_QUESTION'
 export const FINISH_QUIZ_CREATION = 'FINISH_QUIZ_CREATION'
 
-export const startQuiz = (quizId, username, token) => dispatch => {
+export const startQuiz = (quizId, username, reCaptchaToken) => dispatch => {
   dispatch({ type: CLEAR_ERROR })
   dispatch({ type: START_DATA_FETCH })
 
@@ -25,7 +25,7 @@ export const startQuiz = (quizId, username, token) => dispatch => {
       params: {
         quizId,
         username,
-        token,
+        reCaptchaToken,
       },
     })
     .then(response => {
@@ -185,13 +185,13 @@ export const deleteQuestion = index => ({
   index,
 })
 
-export const finishQuizCreation = () => (dispatch, getState) => {
+export const finishQuizCreation = recaptchaToken => (dispatch, getState) => {
   dispatch({ type: START_DATA_FETCH })
 
   const { newQuiz } = getState()
 
   axios
-    .post('/api/quiz', newQuiz)
+    .post('/api/quiz', { recaptchaToken, ...newQuiz })
     .then(response => {
       const { id } = response.data
       dispatch({ type: FINISH_QUIZ_CREATION, id })

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 // Redux
 import { connect } from 'react-redux'
@@ -29,6 +30,7 @@ import QuestionNumber from '../styles/QuestionNumber'
 
 // Utilities
 import regexes from '../utils/regexes'
+import runReCAPTCHA from '../utils/runReCAPTCHA'
 const { regexQuestionText, regexQuestionAnswer } = regexes
 
 const initialQuestionText = 'Type the question here'
@@ -54,6 +56,8 @@ function CreateQuizPage({
   const questionNumberCorrectType = Number(questionNumber)
 
   const history = useHistory()
+
+  const recaptcha = useRef()
 
   const [text, setText] = useState(initialQuestionText)
   const [questionError, setQuestionError] = useState('')
@@ -132,7 +136,9 @@ function CreateQuizPage({
 
   const handleFinishQuiz = () => {
     modifyQuestion(text, answers, correctAnswer)
-    finishQuizCreation()
+    runReCAPTCHA(recaptcha).then(token => {
+      finishQuizCreation(token)
+    })
   }
 
   return (
@@ -176,6 +182,11 @@ function CreateQuizPage({
         changeQuestion={handleQuestionChange}
         finishQuiz={handleFinishQuiz}
         disabledNext={questionNumberCorrectType === 10 || areThereErrors}
+      />
+      <ReCAPTCHA
+        size="invisible"
+        sitekey="6LcDvfsaAAAAACXmFp5FoIQhSGIYnkg1M6bfVXQI"
+        ref={recaptcha}
       />
     </>
   )
