@@ -18,6 +18,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+
+  // The code below prevents contenteditable elements from changing their height while they are empty
+  *[contenteditable]:empty:before {
+    content: "\feff"; /* ZERO WIDTH NO-BREAK SPACE */
+  }
 `
 
 const theme = {
