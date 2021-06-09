@@ -16,7 +16,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    startQuiz: (quizId, username) => dispatch(startQuiz(quizId, username)),
+    startQuiz: (...params) => dispatch(startQuiz(...params)),
     getQuizDetails: quizId => dispatch(getQuizDetails(quizId)),
   }
 }

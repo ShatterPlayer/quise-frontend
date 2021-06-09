@@ -185,13 +185,13 @@ export const deleteQuestion = index => ({
   index,
 })
 
-export const finishQuizCreation = recaptchaToken => (dispatch, getState) => {
+export const finishQuizCreation = reCaptchaToken => (dispatch, getState) => {
   dispatch({ type: START_DATA_FETCH })
 
   const { newQuiz } = getState()
 
   axios
-    .post('/api/quiz', { recaptchaToken, ...newQuiz })
+    .post('/api/quiz', { reCaptchaToken, ...newQuiz })
     .then(response => {
       const { id } = response.data
       dispatch({ type: FINISH_QUIZ_CREATION, id })

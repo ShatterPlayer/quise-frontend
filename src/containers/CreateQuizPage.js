@@ -222,7 +222,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     ),
   deleteQuestion: () =>
     dispatch(deleteQuestion(ownProps.match.params.questionNumber - 1)),
-  finishQuizCreation: () => dispatch(finishQuizCreation()),
+  finishQuizCreation: token => dispatch(finishQuizCreation(token)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateQuizPage)
