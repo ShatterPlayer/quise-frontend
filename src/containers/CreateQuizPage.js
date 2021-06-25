@@ -18,6 +18,7 @@ import Question from '../components/create/Question'
 import Navigation from '../components/create/Navigation'
 import CorrectAnswers from '../components/create/CorrectAnswers'
 import Answers from '../components/create/Answers'
+import CriticalError from '../components/shared/CriticalError'
 
 // Hooks
 import useTitleValidation from '../hooks/useTitleValidation'
@@ -188,6 +189,7 @@ function CreateQuizPage({
         sitekey="6LcDvfsaAAAAACXmFp5FoIQhSGIYnkg1M6bfVXQI"
         ref={recaptcha}
       />
+      <CriticalError />
     </>
   )
 }
