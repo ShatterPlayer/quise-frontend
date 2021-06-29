@@ -1,10 +1,14 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
+import { motion, AnimatePresence } from 'framer-motion'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Header1 from '../../styles/headers/Header1'
 import Header2 from '../../styles/headers/Header2'
 import Button from './Button'
+import { clearError } from '../../redux/actions'
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -35,18 +39,44 @@ const ErrorMessage = styled.p`
   text-align: center;
 `
 
-function CriticalError({ theme, error }) {
+export function CriticalError({ theme, error, clearError }) {
   return (
-    <Container>
-      <Header1>Ooops...</Header1>
-      <Header2>Application ran into unexpected error</Header2>
-      <Header2>Please, try again later</Header2>
-      <StyledButton color={theme.colors.green}>Close</StyledButton>
-      <ErrorMessage>
-        <b>Error message:</b> Recaptcha Validation Failed{error}
-      </ErrorMessage>
-    </Container>
+    <AnimatePresence>
+      {error !== '' && (
+        <Container
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}>
+          <Header1>Ooops...</Header1>
+          <Header2>Application ran into unexpected error</Header2>
+          <Header2>Please, try again later</Header2>
+          <StyledButton color={theme.colors.green} onClick={clearError}>
+            Close
+          </StyledButton>
+          <ErrorMessage>
+            <b>Error message:</b> {error}
+          </ErrorMessage>
+        </Container>
+      )}
+    </AnimatePresence>
   )
 }
 
-export default withTheme(CriticalError)
+CriticalError.propTypes = {
+  theme: PropTypes.object.isRequired,
+  error: PropTypes.string.isRequired,
+  clearError: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = state => ({
+  error: state.error,
+})
+
+const mapDispatchToProps = dispatch => ({
+  clearError: () => dispatch(clearError()),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTheme(CriticalError))
