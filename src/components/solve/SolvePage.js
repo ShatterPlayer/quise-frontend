@@ -6,8 +6,8 @@ import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
 
 // Components
 import Button from '../shared/Button'
-import Error from '../shared/Error'
 import AnswerButton from './AnswerButton'
+import CriticalError from '../shared/CriticalError'
 
 // Styles
 import QuestionNumber from '../../styles/QuestionNumber'
@@ -132,10 +132,10 @@ function Page({
             onClick={onCheck}>
             CHECK
           </Button>
-          {error !== '' && <Error>{error}</Error>}
         </Container>
       </AnimatePresence>
       <GlobalStyle />
+      <CriticalError />
     </ColoredBackground>
   )
 }
