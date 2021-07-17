@@ -18,11 +18,10 @@ const Dot = styled.button`
   border-radius: 50%;
   border: 1px solid white;
   margin: 5px;
-  background: none;
+  background: ${props => (props.selected ? 'white' : 'none')};
   cursor: pointer;
 
   :disabled {
-    background: white;
     cursor: initial;
   }
 `
@@ -44,8 +43,9 @@ export const Dots = ({
       dots.push(
         <Dot
           key={i}
-          disabled={i === questionNumber - 1}
-          onClick={() => !isFetchingData && handleQuestionChange(i + 1)}
+          selected={i === questionNumber - 1}
+          disabled={i === questionNumber - 1 || isFetchingData}
+          onClick={() => handleQuestionChange(i + 1)}
         />,
       )
     }
