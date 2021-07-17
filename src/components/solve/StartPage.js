@@ -10,6 +10,9 @@ import Error from '../shared/Error'
 
 // Utilities
 import runReCAPTCHA from '../../utils/runReCAPTCHA'
+import regexes from '../../utils/regexes'
+
+const regexUsername = String(regexes.regexUsername).slice(1, -2)
 
 const Container = styled.div`
   display: flex;
@@ -108,6 +111,10 @@ function StartPage({
         <UsernameInput
           type="text"
           placeholder="USERNAME"
+          pattern={regexUsername}
+          title={
+            'Username should be from 3 to 20 characters long. Some characters may not be allowed too.'
+          }
           disabled={loading}
           onChange={e => setUsername(e.currentTarget.value)}
         />
