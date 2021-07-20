@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { useParams } from 'react-router-dom'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { Helmet } from 'react-helmet'
 
 // Components
 import Button from '../shared/Button'
@@ -11,6 +12,7 @@ import Error from '../shared/Error'
 // Utilities
 import runReCAPTCHA from '../../utils/runReCAPTCHA'
 import regexes from '../../utils/regexes'
+import AppInfoContext from '../../utils/AppInfoContext'
 
 const Container = styled.div`
   display: flex;
@@ -82,6 +84,7 @@ function StartPage({
   const { quizId } = useParams()
   const [username, setUsername] = useState('')
   const recaptcha = useRef()
+  const { name: appName } = useContext(AppInfoContext)
 
   useEffect(() => {
     getQuizDetails(quizId)
@@ -104,6 +107,9 @@ function StartPage({
 
   return (
     <Container>
+      <Helmet>
+        <title>Solve | {appName}</title>
+      </Helmet>
       <QuizDetails>
         <Title>{title}</Title>
         <Line />

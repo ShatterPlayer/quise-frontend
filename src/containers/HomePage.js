@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { Helmet } from 'react-helmet'
 
 // Redux
 import { connect } from 'react-redux'
@@ -10,6 +11,7 @@ import { setNewQuizTitle, addError, clearError } from '../redux/actions'
 import Page from '../components/home/Page'
 
 // Utilities
+import AppInfoContext from '../utils/AppInfoContext'
 import regexes from '../utils/regexes'
 const { regexId, regexQuizTitle } = regexes
 
@@ -18,6 +20,7 @@ function HomePage({ error, setAcceptedTitle, addError, clearError }) {
   const [quizId, setQuizId] = useState('')
   const [title, setTitle] = useState('')
   const history = useHistory()
+  const { name: appName } = useContext(AppInfoContext)
 
   const solveQuiz = e => {
     e.preventDefault()
@@ -48,16 +51,21 @@ function HomePage({ error, setAcceptedTitle, addError, clearError }) {
   }
 
   return (
-    <Page
-      overlay={overlay}
-      setOverlay={setOverlay}
-      setQuizId={setQuizId}
-      setTitle={setTitle}
-      solveQuiz={solveQuiz}
-      createQuiz={createQuiz}
-      closeOverlay={closeOverlay}
-      error={error}
-    />
+    <>
+      <Helmet>
+        <title>{appName}</title>
+      </Helmet>
+      <Page
+        overlay={overlay}
+        setOverlay={setOverlay}
+        setQuizId={setQuizId}
+        setTitle={setTitle}
+        solveQuiz={solveQuiz}
+        createQuiz={createQuiz}
+        closeOverlay={closeOverlay}
+        error={error}
+      />
+    </>
   )
 }
 

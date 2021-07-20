@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { Helmet } from 'react-helmet'
 
 // Redux
 import { connect } from 'react-redux'
@@ -33,6 +34,7 @@ import QuestionNumber from '../styles/QuestionNumber'
 // Utilities
 import regexes from '../utils/regexes'
 import runReCAPTCHA from '../utils/runReCAPTCHA'
+import AppInfoContext from '../utils/AppInfoContext'
 const { regexQuestionText, regexQuestionAnswer } = regexes
 
 const GlobalStyle = createGlobalStyle`
@@ -63,6 +65,7 @@ function CreateQuizPage({
   const { questionNumber } = match.params
   const questionNumberCorrectType = Number(questionNumber)
 
+  const { name: appName } = useContext(AppInfoContext)
   const history = useHistory()
 
   const recaptcha = useRef()
@@ -152,6 +155,9 @@ function CreateQuizPage({
   return (
     <>
       <Container>
+        <Helmet>
+          <title>Create | {appName}</title>
+        </Helmet>
         <Dots handleQuestionChange={handleQuestionChange} />
         <DeleteQuestionButton
           onClick={handleQuestionDeletion}

@@ -1,4 +1,5 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
+import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import { Link, useHistory } from 'react-router-dom'
 import { useAnimation, motion } from 'framer-motion'
@@ -6,6 +7,9 @@ import { useAnimation, motion } from 'framer-motion'
 // Styles
 import Header1 from '../../styles/headers/Header1'
 import Header2 from '../../styles/headers/Header2'
+
+// Utils
+import AppInfoContext from '../../utils/AppInfoContext'
 
 const Container = styled.div`
   display: flex;
@@ -63,6 +67,7 @@ const SolvingLink = styled.input`
 `
 
 function Summary({ quizId, title }) {
+  const { name: appName } = useContext(AppInfoContext)
   const history = useHistory()
   const linkControls = useAnimation()
 
@@ -87,6 +92,9 @@ function Summary({ quizId, title }) {
 
   return (
     <Container>
+      <Helmet>
+        <title>Summary | {appName}</title>
+      </Helmet>
       <SolvingLink
         readOnly
         value={`${window.location.origin}/quiz/${quizId}`}
