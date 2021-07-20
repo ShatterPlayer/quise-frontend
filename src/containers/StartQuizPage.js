@@ -1,6 +1,6 @@
 // Redux
 import { connect } from 'react-redux'
-import { startQuiz, getQuizDetails } from '../redux/actions'
+import { startQuiz, getQuizDetails, addError } from '../redux/actions'
 
 // Components
 import StartPage from '../components/solve/StartPage'
@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch => {
   return {
     startQuiz: (...params) => dispatch(startQuiz(...params)),
     getQuizDetails: quizId => dispatch(getQuizDetails(quizId)),
+    addError: error => dispatch(addError(error)),
   }
 }
 

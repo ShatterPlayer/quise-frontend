@@ -10,6 +10,7 @@ import Error from '../shared/Error'
 
 // Utilities
 import runReCAPTCHA from '../../utils/runReCAPTCHA'
+import regexes from '../../utils/regexes'
 
 const Container = styled.div`
   display: flex;
@@ -72,6 +73,7 @@ function StartPage({
   title,
   numberOfQuestions,
   error,
+  addError,
   startQuiz,
   getQuizDetails,
   loading,
@@ -87,9 +89,17 @@ function StartPage({
 
   const onSubmit = e => {
     e.preventDefault()
-    runReCAPTCHA(recaptcha)
-      .then(token => startQuiz(quizId, username, token))
-      .catch(() => true)
+    const { regexUsername } = regexes
+
+    if (regexUsername.test(username.trim())) {
+      runReCAPTCHA(recaptcha)
+        .then(token => startQuiz(quizId, username, token))
+        .catch(() => true)
+    } else {
+      addError(
+        'Username should be from 3 to 20 characters long. Some characters may be unsupported.',
+      )
+    }
   }
 
   return (
@@ -128,6 +138,7 @@ StartPage.propTypes = {
   title: PropTypes.string.isRequired,
   numberOfQuestions: PropTypes.number.isRequired,
   error: PropTypes.string.isRequired,
+  addError: PropTypes.func.isRequired,
   startQuiz: PropTypes.func.isRequired,
   getQuizDetails: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,

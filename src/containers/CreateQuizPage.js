@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import { createGlobalStyle } from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import ReCAPTCHA from 'react-google-recaptcha'
 
@@ -33,6 +34,12 @@ import QuestionNumber from '../styles/QuestionNumber'
 import regexes from '../utils/regexes'
 import runReCAPTCHA from '../utils/runReCAPTCHA'
 const { regexQuestionText, regexQuestionAnswer } = regexes
+
+const GlobalStyle = createGlobalStyle`
+.grecaptcha-badge { 
+    bottom: 120px !important; 
+}
+`
 
 const initialQuestionText = 'Type the question here'
 const initialAnswer = 'Type the answer here'
@@ -190,6 +197,7 @@ function CreateQuizPage({
         ref={recaptcha}
       />
       <CriticalError />
+      <GlobalStyle />
     </>
   )
 }
