@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
@@ -11,7 +11,7 @@ import { setNewQuizTitle, addError, clearError } from '../redux/actions'
 import Page from '../components/home/Page'
 
 // Utilities
-import AppInfoContext from '../utils/AppInfoContext'
+import { name as appName } from '../utils/appInfo'
 import regexes from '../utils/regexes'
 const { regexId, regexQuizTitle } = regexes
 
@@ -20,7 +20,6 @@ function HomePage({ error, setAcceptedTitle, addError, clearError }) {
   const [quizId, setQuizId] = useState('')
   const [title, setTitle] = useState('')
   const history = useHistory()
-  const { name: appName } = useContext(AppInfoContext)
 
   const solveQuiz = e => {
     e.preventDefault()

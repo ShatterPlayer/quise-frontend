@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import styled, { createGlobalStyle } from 'styled-components'
 import { useParams } from 'react-router-dom'
@@ -13,7 +13,7 @@ import wrongAnswer from '../../images/wrongAnswer.svg'
 import Loader from '../shared/Loader'
 
 // Utils
-import AppInfoContext from '../../utils/AppInfoContext'
+import { name as appName } from '../../utils/appInfo'
 
 // Resetting overflow. Overflow was changed to hidden in question page.
 const GlobalStyle = createGlobalStyle`
@@ -70,7 +70,6 @@ const Answer = styled.img`
 `
 function Leaderboard({ getLeaderboard, users, title, loading }) {
   const { quizId } = useParams()
-  const { name: appName } = useContext(AppInfoContext)
 
   useEffect(() => {
     getLeaderboard(quizId)

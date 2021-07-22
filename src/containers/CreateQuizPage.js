@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { createGlobalStyle } from 'styled-components'
 import { useHistory } from 'react-router-dom'
@@ -34,7 +34,7 @@ import QuestionNumber from '../styles/QuestionNumber'
 // Utilities
 import regexes from '../utils/regexes'
 import runReCAPTCHA from '../utils/runReCAPTCHA'
-import AppInfoContext from '../utils/AppInfoContext'
+import { name as appName } from '../utils/appInfo'
 const { regexQuestionText, regexQuestionAnswer } = regexes
 
 const GlobalStyle = createGlobalStyle`
@@ -65,7 +65,6 @@ function CreateQuizPage({
   const { questionNumber } = match.params
   const questionNumberCorrectType = Number(questionNumber)
 
-  const { name: appName } = useContext(AppInfoContext)
   const history = useHistory()
 
   const recaptcha = useRef()
