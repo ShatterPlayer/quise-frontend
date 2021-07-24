@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../utils/axios'
 export const START_DATA_FETCH = 'START_DATA_FETCH'
 export const FINISH_DATA_FETCH = 'FINISH_DATA_FETCH'
 export const RECEIVE_QUESTION = 'RECEIVE_QUESTION'
