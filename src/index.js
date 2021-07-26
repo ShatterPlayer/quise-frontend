@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import App from './App'
-import * as serviceWorker from './serviceWorker'
 import store from './redux'
 
 const GlobalStyle = createGlobalStyle`
@@ -56,7 +55,17 @@ ReactDOM.render(
   document.getElementById('root'),
 )
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister()
+if (process.env.NODE_ENV && process.env.NODE_ENV === 'production') {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/service-worker.js', { scope: '/' })
+      .then(reg => {
+        // registration worked
+        console.log('Registration succeeded. Scope is ' + reg.scope)
+      })
+      .catch(error => {
+        // registration failed
+        console.log('Registration failed with ' + error)
+      })
+  }
+}
