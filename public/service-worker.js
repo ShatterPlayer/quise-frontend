@@ -21,4 +21,7 @@ self.addEventListener('fetch', function (evt) {
       })
     }),
   )
+  caches.open(CACHE_NAME).then(function (cache) {
+    return cache.add('/offline')
+  })
 })
