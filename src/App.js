@@ -14,10 +14,14 @@ function App() {
       <Switch>
         <Route path="/" component={HomePage} exact />
         <Route path="/quiz/:quizId" component={QuizPage} exact />
-        <Route path="/quiz/:quizId/leaderboard" component={LeaderboardPage} />
         <Route
-          path="/createquiz/:questionNumber?"
-          children={({ match }) => <CreateQuizPage match={match} />}
+          path="/quiz/:quizId/leaderboard"
+          component={LeaderboardPage}
+          exact
+        />
+        <Route
+          path="/createquiz/:questionNumber"
+          children={({ match }) => <CreateQuizPage match={match} exact />}
         />
         <Route path="/quizsummary" component={NewQuizSummaryPage} exact />
         <Route component={PageNotFound} />
