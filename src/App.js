@@ -6,6 +6,7 @@ import QuizPage from './containers/QuizPage'
 import LeaderboardPage from './containers/LeaderboardPage'
 import CreateQuizPage from './containers/CreateQuizPage'
 import NewQuizSummaryPage from './containers/NewQuizSummaryPage'
+import PageNotFound from './components/404/PageNotFound'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           children={({ match }) => <CreateQuizPage match={match} />}
         />
         <Route path="/quizsummary" component={NewQuizSummaryPage} exact />
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   )
