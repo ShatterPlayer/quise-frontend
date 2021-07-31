@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import notFoundImage from '../../images/undraw_not_found_60pq.svg'
+import { Helmet } from 'react-helmet'
+
+// Utilities
+import { name as appName } from '../../utils/appInfo'
 
 const Container = styled.div`
   width: 100vw;
@@ -24,6 +28,9 @@ const Img = styled.img`
 function PageNotFound() {
   return (
     <Container>
+      <Helmet>
+        <title>Page not found | {appName}</title>
+      </Helmet>
       <Img src={notFoundImage} alt="not-found" />
       <h1>Page not found</h1>
     </Container>
