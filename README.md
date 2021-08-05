@@ -114,4 +114,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 
 [license-shield]: https://img.shields.io/github/license/ShatterPlayer/repo.svg?style=for-the-badge
-[license-url]: https://github.com/ShatterPlayer/repo/blob/master/LICENSE.txt
+[license-url]: https://github.com/ShatterPlayer/quise-frontend/blob/first-version/LICENSE
