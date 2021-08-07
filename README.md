@@ -39,6 +39,7 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -91,6 +92,16 @@ To get a local copy up and running follow these simple steps.
    yarn install
    ```
 
+### Usage
+Run dev server
+```bash
+yarn dev
+```
+
+Create production build
+```bash
+yarn build
+```
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -113,5 +124,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
-[license-shield]: https://img.shields.io/github/license/ShatterPlayer/repo.svg?style=for-the-badge
-[license-url]: https://github.com/ShatterPlayer/quise-frontend/blob/first-version/LICENSE
+[license-shield]: https://img.shields.io/github/license/ShatterPlayer/quise-frontend?style=for-the-badge
+[license-url]: https://github.com/ShatterPlayer/quise-frontend/blob/master/LICENSE
