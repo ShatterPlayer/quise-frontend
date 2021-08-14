@@ -59,7 +59,7 @@ Quise is a simple web application intended to create and solve quizzess.
 
 ### Built With
 
-* [React](https://reactjs.org/)
+* [React](https://reactjs.org/) ([Preact](https://preactjs.com/))
 * [Redux](https://redux.js.org/)
 * [Framer Motion](https://www.framer.com/motion/)
 * [ReCAPTCHA](https://www.google.com/recaptcha/about/)
@@ -101,6 +101,11 @@ yarn dev
 Create production build
 ```bash
 yarn build
+```
+
+Analyze bundle size
+```bash
+yarn analyze
 ```
 
 <!-- CONTRIBUTING -->
