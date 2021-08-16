@@ -45,7 +45,15 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'all',
+      cacheGroups: {
+        framerMotion: {
+          test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+        },
+      },
     },
+  },
+  performance: {
+    maxEntrypointSize: 999999999999,
   },
   resolve: {
     alias: {
