@@ -56,6 +56,9 @@
 
 Quise is a simple web application intended to create and solve quizzess.
 
+### Disclaimer
+This is a personal project. Created quizzes are **deleted** 30 days after creation and after big updates. 
+
 
 ### Built With
 
