@@ -15,8 +15,9 @@ const StyledButton = styled.button`
   border: none;
   font-size: 24px;
   font-weight: 600;
-  color: inherit;
+  color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
+  cursor: pointer;
 `
 
 function Button(props) {
