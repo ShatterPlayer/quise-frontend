@@ -88,7 +88,7 @@ const Quiz = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px;
   width: 500px;
   font-weight: bold;
   background-color: ${({ darker }) =>
@@ -104,7 +104,7 @@ const DeleteButton = styled(ImportedButton)`
   max-width: 85px;
   height: 40px;
   font-size: 13px;
-  margin: 0 20px;
+  margin-left: 20px;
 `
 
 const Link = styled.a`

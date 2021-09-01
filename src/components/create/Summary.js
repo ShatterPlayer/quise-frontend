@@ -5,7 +5,6 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAnimation, motion } from 'framer-motion'
 
 // Styles
-import Header1 from '../../styles/headers/Header1'
 import Header2 from '../../styles/headers/Header2'
 
 // Utils
@@ -37,12 +36,18 @@ const QuizLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   width: 300px;
-  height: 200px;
+  height: 150px;
   background-color: ${props => props.theme.colors[props.bgcolor]};
   border-radius: 30px;
   margin: 20px;
   border: none;
   cursor: pointer;
+  padding: 30px;
+`
+
+const QuizLinkText = styled.h2`
+  font-size: 20px;
+  text-align: center;
 `
 
 const QuizLinkOverlay = styled(motion.div)`
@@ -99,17 +104,17 @@ function Summary({ quizId, title }) {
         value={`${window.location.origin}/quiz/${quizId}`}
         ref={solvingLink}
       />
-      <Header1>{title}</Header1>
+      <Header2>{title}</Header2>
       <LinksContainer>
         <QuizLink as="button" bgcolor="purple" onClick={copySolvingLink}>
-          <Header2>Click here to copy solving link</Header2>
+          <QuizLinkText>Click here to copy solving link</QuizLinkText>
           <QuizLinkOverlay animate={linkControls}>Link copied</QuizLinkOverlay>
         </QuizLink>
         <QuizLink
           bgcolor="yellow"
           to={`/quiz/${quizId}/leaderboard`}
           target="_blank">
-          <Header2>Click here to open leaderboard</Header2>
+          <QuizLinkText>Click here to open leaderboard</QuizLinkText>
         </QuizLink>
       </LinksContainer>
     </Container>
