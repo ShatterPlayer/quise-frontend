@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 // Components
 import Button from '../shared/Button'
 import Input from './Input'
+import QuizList from './QuizList'
 
 // Styles
 import Header1 from '../../styles/headers/Header1'
@@ -64,6 +65,7 @@ function Page({
 }) {
   return (
     <Container>
+      <QuizList />
       <Header1>Quise</Header1>
       <Header2>Quiz App</Header2>
       <StyledButton

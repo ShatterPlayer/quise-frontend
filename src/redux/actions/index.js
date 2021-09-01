@@ -1,4 +1,6 @@
 import axios from '../../utils/axios'
+import addQuizToLocalStorage from '../../utils/addQuizToLocalStorage'
+import deleteQuizFromLocalStorage from '../../utils/deleteQuizFromLocalStorage'
 export const START_DATA_FETCH = 'START_DATA_FETCH'
 export const FINISH_DATA_FETCH = 'FINISH_DATA_FETCH'
 export const RECEIVE_QUESTION = 'RECEIVE_QUESTION'
@@ -195,10 +197,30 @@ export const finishQuizCreation = reCaptchaToken => (dispatch, getState) => {
     .then(response => {
       const { id } = response.data
       dispatch({ type: FINISH_QUIZ_CREATION, id })
+      addQuizToLocalStorage({ title: newQuiz.title, id })
     })
     .catch(error => {
       console.log(error)
       dispatch({ type: ADD_ERROR, error: error.response.data.message })
+    })
+    .finally(() => {
+      dispatch({ type: FINISH_DATA_FETCH })
+    })
+}
+
+export const deleteQuiz = quizId => dispatch => {
+  dispatch({ type: START_DATA_FETCH })
+  return axios
+    .delete('/api/quiz', {
+      params: {
+        quizId,
+      },
+    })
+    .then(() => {
+      deleteQuizFromLocalStorage(quizId)
+    })
+    .catch(e => {
+      dispatch(addError(e.response.data.message))
     })
     .finally(() => {
       dispatch({ type: FINISH_DATA_FETCH })
