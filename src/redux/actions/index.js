@@ -223,6 +223,7 @@ export const deleteQuiz = quizId => dispatch => {
       dispatch(addError(e.response.data.message))
     })
     .finally(() => {
+      deleteQuizFromLocalStorage(quizId)
       dispatch({ type: FINISH_DATA_FETCH })
     })
 }
