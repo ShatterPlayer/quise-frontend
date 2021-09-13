@@ -216,9 +216,6 @@ export const deleteQuiz = quizId => dispatch => {
         quizId,
       },
     })
-    .then(() => {
-      deleteQuizFromLocalStorage(quizId)
-    })
     .catch(e => {
       dispatch(addError(e.response.data.message))
     })
