@@ -1,6 +1,8 @@
 // Redux
 import { connect } from 'react-redux'
-import { startQuiz, getQuizDetails, addError } from '../redux/actions'
+import startQuiz from '../redux/actions/startQuiz'
+import getQuizDetails from '../redux/actions/getQuizDetails'
+import addError from '../redux/actions/addError'
 
 // Components
 import StartPage from '../components/solve/StartPage'

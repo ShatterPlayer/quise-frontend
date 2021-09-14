@@ -16,7 +16,7 @@ import {
   MODIFY_QUESTION,
   DELETE_QUESTION,
   FINISH_QUIZ_CREATION,
-} from '../actions'
+} from '../actions/constants'
 
 const title = (state = '-', action) => {
   switch (action.type) {

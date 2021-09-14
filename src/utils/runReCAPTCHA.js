@@ -1,5 +1,6 @@
 import store from '../redux/'
-import { addError, CLEAR_ERROR } from '../redux/actions'
+import addError from '../redux/actions/addError'
+import { CLEAR_ERROR } from '../redux/actions/constants'
 const runReCAPTCHA = async recaptchaRef => {
   try {
     store.dispatch({ type: CLEAR_ERROR })

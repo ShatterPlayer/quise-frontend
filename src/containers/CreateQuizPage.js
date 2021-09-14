@@ -7,11 +7,9 @@ import { Helmet } from 'react-helmet'
 
 // Redux
 import { connect } from 'react-redux'
-import {
-  modifyQuestion,
-  deleteQuestion,
-  finishQuizCreation,
-} from '../redux/actions'
+import modifyQuestion from '../redux/actions/modifyQuestion'
+import deleteQuestion from '../redux/actions/deleteQuestion'
+import finishQuizCreation from '../redux/actions/finishQuizCreation'
 
 // Components
 import Dots from '../components/create/Dots'

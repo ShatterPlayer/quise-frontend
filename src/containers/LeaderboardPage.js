@@ -1,6 +1,6 @@
 // Redux
 import { connect } from 'react-redux'
-import { getLeaderboard } from '../redux/actions'
+import getLeaderboard from '../redux/actions/getLeaderboard'
 
 // Components
 import Leaderboard from '../components/leaderboard/Page'

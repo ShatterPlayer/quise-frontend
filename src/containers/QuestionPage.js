@@ -1,10 +1,8 @@
 // Redux
 import { connect } from 'react-redux'
-import {
-  nextQuestion,
-  nextQuestionNumber,
-  START_DATA_FETCH,
-} from '../redux/actions'
+import nextQuestion from '../redux/actions/nextQuestion'
+import nextQuestionNumber from '../redux/actions/nextQuestionNumber'
+import { START_DATA_FETCH } from '../redux/actions/constants'
 
 // Components
 import SolvePage from '../components/solve/SolvePage'

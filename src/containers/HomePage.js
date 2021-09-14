@@ -5,7 +5,9 @@ import { Helmet } from 'react-helmet'
 
 // Redux
 import { connect } from 'react-redux'
-import { setNewQuizTitle, addError, clearError } from '../redux/actions'
+import setNewQuizTitle from '../redux/actions/setNewQuizTitle'
+import addError from '../redux/actions/addError'
+import clearError from '../redux/actions/clearError'
 
 // Components
 import Page from '../components/home/Page'

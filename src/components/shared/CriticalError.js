@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import Header1 from '../../styles/headers/Header1'
 import Header2 from '../../styles/headers/Header2'
 import Button from './Button'
-import { clearError } from '../../redux/actions'
+import clearError from '../../redux/actions/clearError'
 
 const Container = styled(motion.div)`
   position: absolute;

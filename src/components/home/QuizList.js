@@ -8,7 +8,7 @@ import {
   useAnimation,
 } from 'framer-motion'
 import styled, { useTheme } from 'styled-components'
-import { deleteQuiz } from '../../redux/actions'
+import deleteQuiz from '../../redux/actions/deleteQuiz'
 
 // Components
 import ImportedButton from '../shared/Button'
