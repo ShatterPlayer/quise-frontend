@@ -10,6 +10,7 @@ import QuizList from './QuizList'
 // Styles
 import Header1 from '../../styles/headers/Header1'
 import Header2 from '../../styles/headers/Header2'
+import CookieConsent from '../shared/CookieConsent'
 
 const Container = styled.div`
   display: flex;
@@ -64,53 +65,58 @@ function Page({
   createQuiz,
 }) {
   return (
-    <Container>
-      <QuizList />
-      <Header1>Quise</Header1>
-      <Header2>Quiz App</Header2>
-      <StyledButton
-        color={theme.colors.green}
-        onClick={() => setOverlay('createQuiz')}>
-        Create Quiz
-      </StyledButton>
-      <Button color={theme.colors.blue} onClick={() => setOverlay('solveQuiz')}>
-        Solve Quiz
-      </Button>
-      {overlay === 'createQuiz' && (
-        <Overlay onSubmit={createQuiz}>
-          <Input
-            initialFocus
-            error={error}
-            onChange={e => setTitle(e.currentTarget.value)}
-            placeholder="Title of the quiz"
-          />
-          <OverlayText>Type in the title and press enter</OverlayText>
-          <OverlayBackButton
-            type="button"
-            color={theme.colors.green}
-            onClick={closeOverlay}>
-            Go back
-          </OverlayBackButton>
-        </Overlay>
-      )}
-      {overlay === 'solveQuiz' && (
-        <Overlay onSubmit={solveQuiz}>
-          <Input
-            initialFocus
-            placeholder="Quiz ID"
-            error={error}
-            onChange={e => setQuizId(e.currentTarget.value)}
-          />
-          <OverlayText>Type in the quiz id and press enter</OverlayText>
-          <OverlayBackButton
-            type="button"
-            color={theme.colors.blue}
-            onClick={closeOverlay}>
-            Go back
-          </OverlayBackButton>
-        </Overlay>
-      )}
-    </Container>
+    <>
+      <Container>
+        <QuizList />
+        <Header1>Quise</Header1>
+        <Header2>Quiz App</Header2>
+        <StyledButton
+          color={theme.colors.green}
+          onClick={() => setOverlay('createQuiz')}>
+          Create Quiz
+        </StyledButton>
+        <Button
+          color={theme.colors.blue}
+          onClick={() => setOverlay('solveQuiz')}>
+          Solve Quiz
+        </Button>
+        {overlay === 'createQuiz' && (
+          <Overlay onSubmit={createQuiz}>
+            <Input
+              initialFocus
+              error={error}
+              onChange={e => setTitle(e.currentTarget.value)}
+              placeholder="Title of the quiz"
+            />
+            <OverlayText>Type in the title and press enter</OverlayText>
+            <OverlayBackButton
+              type="button"
+              color={theme.colors.green}
+              onClick={closeOverlay}>
+              Go back
+            </OverlayBackButton>
+          </Overlay>
+        )}
+        {overlay === 'solveQuiz' && (
+          <Overlay onSubmit={solveQuiz}>
+            <Input
+              initialFocus
+              placeholder="Quiz ID"
+              error={error}
+              onChange={e => setQuizId(e.currentTarget.value)}
+            />
+            <OverlayText>Type in the quiz id and press enter</OverlayText>
+            <OverlayBackButton
+              type="button"
+              color={theme.colors.blue}
+              onClick={closeOverlay}>
+              Go back
+            </OverlayBackButton>
+          </Overlay>
+        )}
+      </Container>
+      <CookieConsent />
+    </>
   )
 }
 

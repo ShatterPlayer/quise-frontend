@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet'
 // Components
 import Button from '../shared/Button'
 import Error from '../shared/Error'
+import CookieConsent from '../shared/CookieConsent'
 
 // Utilities
 import runReCAPTCHA from '../../utils/runReCAPTCHA'
@@ -105,37 +106,40 @@ function StartPage({
   }
 
   return (
-    <Container>
-      <Helmet>
-        <title>Solve | {appName}</title>
-      </Helmet>
-      <QuizDetails>
-        <Title>{title}</Title>
-        <Line />
-        <QuestionsAmount>{numberOfQuestions} questions</QuestionsAmount>
-      </QuizDetails>
-      <UserDetails onSubmit={onSubmit}>
-        <ReCAPTCHA
-          size="invisible"
-          sitekey="6LcDvfsaAAAAACXmFp5FoIQhSGIYnkg1M6bfVXQI"
-          ref={recaptcha}
-        />
-        <UsernameInput
-          type="text"
-          placeholder="USERNAME"
-          disabled={loading}
-          onChange={e => setUsername(e.currentTarget.value)}
-        />
-        <Button
-          type="submit"
-          isLoading={loading}
-          disabled={username.trim() === ''}
-          color={theme.colors.blue}>
-          START
-        </Button>
-        {error && <Error>{error}</Error>}
-      </UserDetails>
-    </Container>
+    <>
+      <Container>
+        <Helmet>
+          <title>Solve | {appName}</title>
+        </Helmet>
+        <QuizDetails>
+          <Title>{title}</Title>
+          <Line />
+          <QuestionsAmount>{numberOfQuestions} questions</QuestionsAmount>
+        </QuizDetails>
+        <UserDetails onSubmit={onSubmit}>
+          <ReCAPTCHA
+            size="invisible"
+            sitekey="6LcDvfsaAAAAACXmFp5FoIQhSGIYnkg1M6bfVXQI"
+            ref={recaptcha}
+          />
+          <UsernameInput
+            type="text"
+            placeholder="USERNAME"
+            disabled={loading}
+            onChange={e => setUsername(e.currentTarget.value)}
+          />
+          <Button
+            type="submit"
+            isLoading={loading}
+            disabled={username.trim() === ''}
+            color={theme.colors.blue}>
+            START
+          </Button>
+          {error && <Error>{error}</Error>}
+        </UserDetails>
+      </Container>
+      <CookieConsent />
+    </>
   )
 }
 
