@@ -50,7 +50,7 @@ function CookieConsent() {
   }, [])
 
   const agree = () => {
-    Cookies.set('CookieConsent', new Date().toISOString())
+    Cookies.set('CookieConsent', new Date().toISOString(), { expires: 365 })
     setAccepted(true)
   }
   return (
