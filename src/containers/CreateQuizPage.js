@@ -24,6 +24,7 @@ import CriticalError from '../components/shared/CriticalError'
 import useTitleValidation from '../hooks/useTitleValidation'
 import useOrderValidation from '../hooks/useOrderValidation'
 import useCreationListener from '../hooks/useCreationListener'
+import useUnloadAlert from '../hooks/useUnloadAlert'
 
 // Styles
 import Container from '../components/create/styles/Container'
@@ -85,6 +86,7 @@ function CreateQuizPage({
 
   useTitleValidation(title, questionNumber)
   useOrderValidation(maxCorrectQuestionNumber, questionNumber)
+  useUnloadAlert()
 
   // Draft question is synced with the question in the Redux store
   useEffect(() => {

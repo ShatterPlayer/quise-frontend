@@ -14,6 +14,9 @@ import QuestionNumber from '../../styles/QuestionNumber'
 import QuestionText from '../../styles/QuestionText'
 import AnswersWrapper from '../../styles/AnswersWrapper'
 
+// Hooks
+import useUnloadAlert from '../../hooks/useUnloadAlert'
+
 // The line below is necessary to prevent UI bug. Applying overflow hidden to ColoredBackground does not work as expected.
 const GlobalStyle = createGlobalStyle`
   body {
@@ -55,6 +58,7 @@ function Page({
   const history = useHistory()
   const { quizId } = useParams()
   const [selectedAnswer, setSelectedAnswer] = useState(-1)
+  useUnloadAlert()
   const { green, yellow, red, orange } = theme.colors
   const answersColors = [green, yellow, red, orange]
 
