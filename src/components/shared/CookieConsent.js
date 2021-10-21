@@ -53,10 +53,11 @@ function CookieConsent() {
     Cookies.set('CookieConsent', new Date().toISOString(), { expires: 365 })
     setAccepted(true)
   }
+
   return (
     <AnimatePresence>
       {!accepted && (
-        <Container exit={{ opacity: 0 }}>
+        <Container data-testid="container" exit={{ opacity: 0 }}>
           <Cookie>🍪</Cookie>
           <MainHeader>This site uses cookies</MainHeader>
           <Paragraph>
