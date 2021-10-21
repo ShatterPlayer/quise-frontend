@@ -53,6 +53,6 @@
     "dev": "webpack serve --mode development --port 3000",
     "build": "webpack build --mode production",
     "analyze": "webpack build --mode production --analyze",
-    "test": "jest --verbose --env=jsdom ./tests"
+    "test": "jest --verbose --env=jsdom"
   }
 }
