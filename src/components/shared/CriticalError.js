@@ -8,7 +8,7 @@ import Header2 from '../../styles/headers/Header2'
 import Button from './Button'
 import clearError from '../../redux/actions/clearError'
 
-const Container = styled(motion.div)`
+const Container = styled(motion.article)`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -39,7 +39,7 @@ const ErrorMessage = styled.p`
   text-align: center;
 `
 
-export function CriticalError({ theme, error, clearError }) {
+function CriticalError({ theme, error, clearError }) {
   return (
     <AnimatePresence>
       {error !== '' && (
@@ -75,6 +75,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   clearError: () => dispatch(clearError()),
 })
+
+const CriticalErrorTheme = withTheme(CriticalError)
+
+export { CriticalErrorTheme as CriticalError }
 
 export default connect(
   mapStateToProps,
