@@ -10,17 +10,24 @@ describe('CookieConsent component', () => {
     const ISOTimeRegex =
       /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/
     render(<CookieConsent />)
-    const acceptButton = screen.getByText("It's fine")
+    const acceptButton = screen.getByRole('button', { name: "It's fine" })
     fireEvent.click(acceptButton)
     expect(ISOTimeRegex.test(Cookies.get('CookieConsent'))).toBeTruthy()
     Cookies.remove('CookieConsent')
   })
 
-  test('is not rendered if accepted', async () => {
+  test('is rendered if does not accepted', () => {
+    Cookies.remove('CookieConsent')
     render(<CookieConsent />)
-    const acceptButton = screen.getByText("It's fine")
-    fireEvent.click(acceptButton)
-    const container = screen.queryByTestId('container')
+    const container = screen.queryByRole('article')
+    expect(container).toBeInTheDocument()
+  })
+
+  test('is not rendered if accepted', () => {
+    Cookies.set('CookieConsent', new Date().toISOString())
+    render(<CookieConsent />)
+    const container = screen.queryByRole('article')
     expect(container).not.toBeInTheDocument()
+    Cookies.remove('CookieConsent')
   })
 })

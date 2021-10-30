@@ -4,7 +4,7 @@ import Button from './Button'
 import { AnimatePresence, motion } from 'framer-motion'
 import Cookies from 'js-cookie'
 
-const Container = styled(motion.div)`
+const Container = styled(motion.article)`
   position: absolute;
   top: 0;
   left: 0;
@@ -57,7 +57,7 @@ function CookieConsent() {
   return (
     <AnimatePresence>
       {!accepted && (
-        <Container data-testid="container" exit={{ opacity: 0 }}>
+        <Container exit={{ opacity: 0 }}>
           <Cookie>🍪</Cookie>
           <MainHeader>This site uses cookies</MainHeader>
           <Paragraph>
