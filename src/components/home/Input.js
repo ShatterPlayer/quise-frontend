@@ -41,8 +41,7 @@ function Input({ placeholder, error, onChange, initialFocus }) {
     <Container>
       <Error
         animate={{ translateY: '-100%', opacity: 1 }}
-        initial={{ translateY: '0%', opacity: 0 }}
-      >
+        initial={{ translateY: '0%', opacity: 0 }}>
         {error}
       </Error>
       <StyledInput
