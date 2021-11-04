@@ -7,12 +7,12 @@ describe('CriticalError component', () => {
   test('is not visible when there is no error', () => {
     render(<CriticalError error="" clearError={() => true} />)
     const container = screen.queryByRole('article')
-    expect(container).toBeNull()
+    expect(container).not.toBeInTheDocument()
   })
 
   test('is shown when error occurs', () => {
     render(<CriticalError error="Error :(" clearError={() => true} />)
     const container = screen.queryByRole('article')
-    expect(container).not.toBeNull()
+    expect(container).toBeInTheDocument()
   })
 })

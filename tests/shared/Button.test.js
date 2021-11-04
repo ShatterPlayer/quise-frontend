@@ -1,16 +1,17 @@
 import React from 'react'
 import { render, screen, cleanup, fireEvent } from '../utils'
+import userEvent from '@testing-library/user-event'
 
 import Button from '../../src/components/shared/Button'
 
-afterEach(() => cleanup())
+afterEach(cleanup)
 
 describe('Button component', () => {
   test('calls a function on click', () => {
     const fn = jest.fn()
     render(<Button color="#121212" onClick={fn} />)
     const button = screen.getByRole('button')
-    fireEvent.click(button)
+    userEvent.click(button)
     expect(fn).toBeCalled()
   })
 
