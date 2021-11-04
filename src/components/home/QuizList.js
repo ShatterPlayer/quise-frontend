@@ -112,7 +112,7 @@ const Link = styled.a`
   color: inherit;
 `
 
-function QuizList({ deleteQuiz, error, isFetchingData }) {
+function QuizList({ deleteQuiz, isFetchingData }) {
   const [visible, setVisible] = useState(false)
   const [quizzes, setQuizzes] = useState([])
   const buttonAnimation = useAnimation()

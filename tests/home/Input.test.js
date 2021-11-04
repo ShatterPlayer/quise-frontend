@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, cleanup, fireEvent } from '../utils'
+import { render, screen, cleanup } from '../utils'
 import userEvent from '@testing-library/user-event'
 
 import Input from '../../src/components/home/Input'

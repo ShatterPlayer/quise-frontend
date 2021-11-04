@@ -1,5 +1,5 @@
 import React from 'react'
-import { cleanup, render, screen, fireEvent } from '../utils'
+import { cleanup, render, screen } from '../utils'
 import userEvent from '@testing-library/user-event'
 import Cookies from 'js-cookie'
 import CookieConsent from '../../src/components/shared/CookieConsent'
