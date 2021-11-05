@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import styled, { createGlobalStyle } from 'styled-components'
-import { useParams } from 'react-router-dom'
+import styled, { createGlobalStyle, withTheme } from 'styled-components'
+import { useParams, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { AnimatePresence } from 'framer-motion'
 
@@ -14,6 +14,9 @@ import Loader from '../shared/Loader'
 
 // Utils
 import { name as appName } from '../../utils/appInfo'
+
+// Styles
+import TopRightButton from '../../styles/TopRightButton'
 
 // Resetting overflow. Overflow was changed to hidden in question page.
 const GlobalStyle = createGlobalStyle`
@@ -68,7 +71,7 @@ const Answer = styled.img`
   width: 25px;
   height: 25px;
 `
-function Leaderboard({ getLeaderboard, users, title, loading }) {
+function Leaderboard({ getLeaderboard, users, title, loading, theme }) {
   const { quizId } = useParams()
 
   useEffect(() => {
@@ -104,6 +107,12 @@ function Leaderboard({ getLeaderboard, users, title, loading }) {
           </User>
         ))}
       </Users>
+      <TopRightButton
+        color={theme.colors.green}
+        as={Link}
+        to={`/quiz/${quizId}`}>
+        Solve
+      </TopRightButton>
       <GlobalStyle />
     </Container>
   )
@@ -114,6 +123,7 @@ Leaderboard.propTypes = {
   users: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
+  theme: PropTypes.object.isRequired,
 }
 
-export default Leaderboard
+export default withTheme(Leaderboard)
