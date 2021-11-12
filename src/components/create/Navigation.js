@@ -34,7 +34,7 @@ const NavButton = styled.button`
   }
 `
 
-export function Navigation({
+function Navigation({
   isFetchingData,
   disabledPrevious,
   changeQuestion,

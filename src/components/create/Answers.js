@@ -21,7 +21,7 @@ const AnswerContainer = styled.div`
   position: relative;
 `
 
-export function Answers({
+function Answers({
   theme: { answersColors },
   handleAnswerChange,
   isFetchingData,

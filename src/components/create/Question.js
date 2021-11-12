@@ -19,7 +19,7 @@ const QuestionError = styled(AnswerError)`
   width: 350px;
 `
 
-export const Question = ({
+const Question = ({
   isFetchingData,
   handleQuestionTextChange,
   questionError,

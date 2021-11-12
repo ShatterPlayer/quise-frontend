@@ -180,12 +180,10 @@ function QuizList({ deleteQuiz, isFetchingData }) {
 
 QuizList.propTypes = {
   deleteQuiz: PropTypes.func.isRequired,
-  error: PropTypes.string,
   isFetchingData: PropTypes.bool,
 }
 
 const mapStateToProps = state => ({
-  error: state.error,
   isFetchingData: state.isFetchingData,
 })
 

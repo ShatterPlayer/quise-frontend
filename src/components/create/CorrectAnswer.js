@@ -33,7 +33,7 @@ const CorrectAnswerMark = styled(motion.div)`
   background-repeat: no-repeat;
 `
 
-export const CorrectAnswer = ({
+const CorrectAnswer = ({
   color,
   setCorrectAnswer,
   index,

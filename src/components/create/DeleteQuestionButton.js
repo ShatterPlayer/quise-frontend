@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 // Images
 import trashBin from '../../images/trashBin.svg'
 
-export const DeleteButton = styled.button`
+const DeleteButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;

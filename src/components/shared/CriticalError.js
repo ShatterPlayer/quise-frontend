@@ -76,10 +76,6 @@ const mapDispatchToProps = dispatch => ({
   clearError: () => dispatch(clearError()),
 })
 
-const CriticalErrorTheme = withTheme(CriticalError)
-
-export { CriticalErrorTheme as CriticalError }
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps,

@@ -26,7 +26,7 @@ const Dot = styled.button`
   }
 `
 
-export const Dots = ({
+const Dots = ({
   maxCorrectQuestionNumber,
   isFetchingData,
   handleQuestionChange,
