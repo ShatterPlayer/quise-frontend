@@ -1,12 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import { AnimatePresence } from 'framer-motion'
-
-// Styles
-import StyledButton from '../../styles/StyledButton'
 
 // Components
 import Loader from './Loader'
+
+const StyledButton = styled.button`
+  position: relative;
+  width: 205px;
+  height: 64px;
+  background-color: ${props => props.color};
+  border-radius: 50px;
+  border: none;
+  font-size: 24px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.white};
+  overflow: hidden;
+  cursor: pointer;
+`
 
 function Button(props) {
   const { disabled, isLoading, children } = props

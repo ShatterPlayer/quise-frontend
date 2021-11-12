@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { Helmet } from 'react-helmet'
 
@@ -14,9 +14,6 @@ import CookieConsent from '../shared/CookieConsent'
 import runReCAPTCHA from '../../utils/runReCAPTCHA'
 import regexes from '../../utils/regexes'
 import { name as appName } from '../../utils/appInfo'
-
-// Styles
-import LeaderboardButton from '../../styles/TopRightButton'
 
 const Container = styled.div`
   display: flex;
@@ -138,12 +135,6 @@ function StartPage({
             color={theme.colors.blue}>
             START
           </Button>
-          <LeaderboardButton
-            as={Link}
-            to={`/quiz/${quizId}/leaderboard`}
-            color={theme.colors.yellow}>
-            Leaderboard
-          </LeaderboardButton>
           {error && <Error>{error}</Error>}
         </UserDetails>
       </Container>
@@ -160,7 +151,6 @@ StartPage.propTypes = {
   startQuiz: PropTypes.func.isRequired,
   getQuizDetails: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  theme: PropTypes.object.isRequired,
 }
 
 export default withTheme(StartPage)
