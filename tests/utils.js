@@ -1,6 +1,9 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import { render } from '@testing-library/react'
+
+import store from '../src/redux'
 
 const theme = {
   colors: {
@@ -15,7 +18,11 @@ const theme = {
 }
 
 function Wrapper({ children }) {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return (
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>{children}</Provider>
+    </ThemeProvider>
+  )
 }
 
 const customRender = (ui, options) =>
