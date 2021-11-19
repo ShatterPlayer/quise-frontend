@@ -13,7 +13,6 @@ const Answer = styled.button`
   font-size: 13px;
   margin: 15px 0;
   background-color: ${props => props.color};
-  outline: none;
   transition: 0.4s;
 
   @media only screen and (min-width: 750px) {
