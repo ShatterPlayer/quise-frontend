@@ -49,11 +49,11 @@ function Page({
   correctAnswer,
   isQuizDone,
   isLoading,
-  error,
   submitAnswer,
   nextQuestionNumber,
   startDataFetch,
   theme,
+  clearSolvedQuiz,
 }) {
   const history = useHistory()
   const { quizId } = useParams()
@@ -73,6 +73,7 @@ function Page({
         setTimeout(() => {
           // The line below prevents leaderboard from displaying before spinner
           startDataFetch()
+          clearSolvedQuiz()
           history.push(`/quiz/${quizId}/leaderboard`)
         }, 2000)
       }
@@ -153,7 +154,7 @@ Page.propTypes = {
   submitAnswer: PropTypes.func.isRequired,
   nextQuestionNumber: PropTypes.func.isRequired,
   startDataFetch: PropTypes.func.isRequired,
-  error: PropTypes.string.isRequired,
+  clearSolvedQuiz: PropTypes.func.isRequired,
 }
 
 export default withTheme(Page)

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import defaultState from '../defaultState'
 import {
   START_DATA_FETCH,
   FINISH_DATA_FETCH,
@@ -16,27 +17,32 @@ import {
   MODIFY_QUESTION,
   DELETE_QUESTION,
   FINISH_QUIZ_CREATION,
+  CLEAR_SOLVED_QUIZ,
 } from '../actions/constants'
 
-const title = (state = '-', action) => {
+const title = (state = defaultState.title, action) => {
   switch (action.type) {
     case RECEIVE_QUIZ_TITLE:
       return action.title
+    case CLEAR_SOLVED_QUIZ:
+      return defaultState.title
     default:
       return state
   }
 }
 
-const numberOfQuestions = (state = 0, action) => {
+const numberOfQuestions = (state = defaultState.numberOfQuestions, action) => {
   switch (action.type) {
     case RECEIVE_QUESTIONS_AMOUNT:
       return action.questionsAmount
+    case CLEAR_SOLVED_QUIZ:
+      return defaultState.numberOfQuestions
     default:
       return state
   }
 }
 
-const isFetchingData = (state = false, action) => {
+const isFetchingData = (state = defaultState.isFetchingData, action) => {
   switch (action.type) {
     case START_DATA_FETCH:
       return true
@@ -47,7 +53,7 @@ const isFetchingData = (state = false, action) => {
   }
 }
 
-const questions = (state = {}, action) => {
+const questions = (state = defaultState.questions, action) => {
   switch (action.type) {
     case RECEIVE_QUESTION:
       return {
@@ -63,21 +69,25 @@ const questions = (state = {}, action) => {
       stateWithCorrectAnswer[action.questionNumber].correctAnswer =
         action.correctAnswer
       return stateWithCorrectAnswer
+    case CLEAR_SOLVED_QUIZ:
+      return defaultState.questions
     default:
       return state
   }
 }
 
-const currentQuestion = (state = 0, action) => {
+const currentQuestion = (state = defaultState.currentQuestion, action) => {
   switch (action.type) {
     case NEXT_QUESTION_NUMBER:
       return state + 1
+    case CLEAR_SOLVED_QUIZ:
+      return defaultState.currentQuestion
     default:
       return state
   }
 }
 
-const error = (state = '', action) => {
+const error = (state = defaultState.error, action) => {
   switch (action.type) {
     case ADD_ERROR:
       return action.error || 'Internal server error'
@@ -88,16 +98,18 @@ const error = (state = '', action) => {
   }
 }
 
-const isQuizDone = (state = false, action) => {
+const isQuizDone = (state = defaultState.isQuizDone, action) => {
   switch (action.type) {
     case FINISH_QUIZ:
       return true
+    case CLEAR_SOLVED_QUIZ:
+      return defaultState.isQuizDone
     default:
       return state
   }
 }
 
-const leaderboardUsers = (state = [], action) => {
+const leaderboardUsers = (state = defaultState.leaderboardUsers, action) => {
   switch (action.type) {
     case RECEIVE_LEADERBOARD:
       return action.users
@@ -106,7 +118,7 @@ const leaderboardUsers = (state = [], action) => {
   }
 }
 
-const newQuizTitle = (state = '-', action) => {
+const newQuizTitle = (state = defaultState.newQuiz.title, action) => {
   switch (action.type) {
     case SET_NEW_QUIZ_TITLE:
       return action.title
@@ -115,7 +127,7 @@ const newQuizTitle = (state = '-', action) => {
   }
 }
 
-const newQuizQuestions = (state = [], action) => {
+const newQuizQuestions = (state = defaultState.newQuiz.questions, action) => {
   switch (action.type) {
     case MODIFY_QUESTION:
       const { text, answers, correctAnswer, questionNumber } = action
@@ -136,7 +148,7 @@ const newQuizQuestions = (state = [], action) => {
   }
 }
 
-const newQuizId = (state = '', action) => {
+const newQuizId = (state = defaultState.newQuiz.id, action) => {
   switch (action.type) {
     case FINISH_QUIZ_CREATION:
       return action.id
@@ -145,14 +157,7 @@ const newQuizId = (state = '', action) => {
   }
 }
 
-const newQuiz = (
-  state = {
-    title: '-',
-    questions: [],
-    id: '',
-  },
-  action,
-) => {
+const newQuiz = (state = defaultState.newQuiz, action) => {
   switch (action.type) {
     case SET_NEW_QUIZ_TITLE:
       return {

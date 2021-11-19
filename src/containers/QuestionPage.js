@@ -2,6 +2,7 @@
 import { connect } from 'react-redux'
 import nextQuestion from '../redux/actions/nextQuestion'
 import nextQuestionNumber from '../redux/actions/nextQuestionNumber'
+import clearSolvedQuiz from '../redux/actions/clearSolvedQuiz'
 import { START_DATA_FETCH } from '../redux/actions/constants'
 
 // Components
@@ -12,7 +13,6 @@ const mapStateToProps = state => {
     question: state.questions[state.currentQuestion],
     correctAnswer: state.questions[state.currentQuestion].correctAnswer,
     isQuizDone: state.isQuizDone,
-    error: state.error,
     isLoading: state.isFetchingData,
     questionNumber: state.currentQuestion,
   }
@@ -24,6 +24,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(nextQuestion(answer, questionNumber)),
     nextQuestionNumber: () => dispatch(nextQuestionNumber()),
     startDataFetch: () => dispatch({ type: START_DATA_FETCH }),
+    clearSolvedQuiz: () => dispatch(clearSolvedQuiz()),
   }
 }
 
