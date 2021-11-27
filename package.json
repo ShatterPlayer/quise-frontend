@@ -18,6 +18,7 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
     "html-webpack-plugin": "^5.3.2",
+    "husky": "^7.0.4",
     "jest": "^27.2.4",
     "regenerator-runtime": "^0.13.9",
     "webpack": "^5.49.0",
@@ -59,6 +60,7 @@
     "dev": "webpack serve --mode development --port 3000",
     "build": "webpack build --mode production",
     "analyze": "webpack build --mode production --analyze",
-    "test": "jest --verbose --env=jsdom"
+    "test": "jest --verbose --env=jsdom",
+    "postinstall": "husky install"
   }
 }
