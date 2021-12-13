@@ -1,5 +1,6 @@
 export default {
   title: '-',
+  quizDoesNotExist: false,
   numberOfQuestions: 0,
   isFetchingData: false,
   questions: {},

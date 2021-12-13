@@ -18,6 +18,10 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &[disabled] {
+    pointer-events: none;
+  }
 `
 
 export default StyledButton

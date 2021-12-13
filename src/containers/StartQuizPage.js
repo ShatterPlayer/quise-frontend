@@ -13,6 +13,7 @@ const mapStateToProps = state => {
     numberOfQuestions: state.numberOfQuestions,
     error: state.error,
     loading: state.isFetchingData,
+    quizDoesNotExist: state.quizDoesNotExist,
   }
 }
 

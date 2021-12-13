@@ -18,6 +18,7 @@ import {
   DELETE_QUESTION,
   FINISH_QUIZ_CREATION,
   CLEAR_SOLVED_QUIZ,
+  MARK_QUIZ_AS_NONEXISTENT,
 } from '../actions/constants'
 
 const title = (state = defaultState.title, action) => {
@@ -26,6 +27,15 @@ const title = (state = defaultState.title, action) => {
       return action.title
     case CLEAR_SOLVED_QUIZ:
       return defaultState.title
+    default:
+      return state
+  }
+}
+
+const quizDoesNotExist = (state = defaultState.quizDoesNotExist, action) => {
+  switch (action.type) {
+    case MARK_QUIZ_AS_NONEXISTENT:
+      return true
     default:
       return state
   }
@@ -183,6 +193,7 @@ const newQuiz = (state = defaultState.newQuiz, action) => {
 
 export default combineReducers({
   title,
+  quizDoesNotExist,
   numberOfQuestions,
   isQuizDone,
   isFetchingData,

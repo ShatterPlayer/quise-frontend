@@ -84,6 +84,7 @@ function StartPage({
   getQuizDetails,
   loading,
   theme,
+  quizDoesNotExist,
 }) {
   const { quizId } = useParams()
   const [username, setUsername] = useState('')
@@ -128,19 +129,20 @@ function StartPage({
           <UsernameInput
             type="text"
             placeholder="USERNAME"
-            disabled={loading}
+            disabled={loading || quizDoesNotExist}
             onChange={e => setUsername(e.currentTarget.value)}
           />
           <Button
             type="submit"
             isLoading={loading}
-            disabled={username.trim() === ''}
+            disabled={username.trim() === '' || quizDoesNotExist}
             color={theme.colors.blue}>
             START
           </Button>
           <LeaderboardButton
             as={Link}
             to={`/quiz/${quizId}/leaderboard`}
+            disabled={quizDoesNotExist || loading}
             color={theme.colors.yellow}>
             Leaderboard
           </LeaderboardButton>
@@ -161,6 +163,7 @@ StartPage.propTypes = {
   getQuizDetails: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   theme: PropTypes.object.isRequired,
+  quizDoesNotExist: PropTypes.bool.isRequired,
 }
 
 export default withTheme(StartPage)
