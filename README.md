@@ -1,5 +1,6 @@
 <!-- Template: https://github.com/othneildrew/Best-README-Template -->
 [![MIT License][license-shield]][license-url]
+[![wakatime](https://wakatime.com/badge/github/ShatterPlayer/quise-frontend.svg?style=for-the-badge)](https://wakatime.com/badge/github/ShatterPlayer/quise-frontend)
 
 
 
